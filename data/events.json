@@ -1,1 +1,262 @@
-[]
+[
+  {
+    "date": "2026-02-27",
+    "company": "Biorecro AB",
+    "text": "Biorecro AB har minskat sin nettoomsättning med 7 %, från 3,2 milj kr till 2,9 milj kr. Resultatet har försämrats med 59 %, från 83 000 kr till 34 000 kr.",
+    "raw_markdown": "**Biorecro AB** har minskat sin nettoomsättning med 7 %, från 3,2 milj kr till 2,9 milj kr. Resultatet har försämrats med 59 %, från 83 000 kr till 34 000 kr.",
+    "eivora_id": "dc2a22d5-174a-4a72-95a2-3f1d0fb9bdd0",
+    "org_number": "5569684250",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Hydro66 Svenska AB",
+    "text": "Hydro66 Svenska AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Hydro66 Svenska AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "e1b4e1dc-2513-45d4-8500-b7cb1b2aaabc",
+    "org_number": "5569676686",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Cellcolabs AB",
+    "text": "Cellcolabs AB har förändringar i styrelsen:  \n➕ Petter Hallman (Extern verkställande direktör)",
+    "raw_markdown": "**Cellcolabs AB** har förändringar i styrelsen:  \n➕ Petter Hallman (Extern verkställande direktör)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Petter Hallman",
+        "role": "Extern verkställande direktör"
+      }
+    ],
+    "eivora_id": "f124bd3d-b4ba-41b8-8288-72d3cdc61f9e",
+    "org_number": "5593126955",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Galaxy Biosolutions AB",
+    "text": "Galaxy Biosolutions AB har förändringar i styrelsen:  \n➕ Ulrika Ahlholm (Ledamot)\n➕ Emma Carlstedt Haga (Suppleant)\n➕ Anna Björk (Suppleant)\n➕ Niklas Nygårds (Suppleant)",
+    "raw_markdown": "**Galaxy Biosolutions AB** har förändringar i styrelsen:  \n➕ Ulrika Ahlholm (Ledamot)\n➕ Emma Carlstedt Haga (Suppleant)\n➕ Anna Björk (Suppleant)\n➕ Niklas Nygårds (Suppleant)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Ulrika Ahlholm",
+        "role": "Ledamot"
+      },
+      {
+        "action": "added",
+        "name": "Emma Carlstedt Haga",
+        "role": "Suppleant"
+      },
+      {
+        "action": "added",
+        "name": "Anna Björk",
+        "role": "Suppleant"
+      },
+      {
+        "action": "added",
+        "name": "Niklas Nygårds",
+        "role": "Suppleant"
+      }
+    ],
+    "eivora_id": "8dda9463-28ef-4a31-a1ec-e5064c0ad9c1",
+    "org_number": "5594516535",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Stenliden Teknik & Entreprenad AB",
+    "text": "Stenliden Teknik & Entreprenad AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Stenliden Teknik & Entreprenad AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "d9949b89-56b9-46e5-880f-0e106e518e4f",
+    "org_number": "5592946650",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "HEJMAS Agrifibre Technologies AB",
+    "text": "HEJMAS Agrifibre Technologies AB har förändringar i styrelsen:  \n➕ Marek Stefan Hejduk (Ordförande)\n➕ Edward Murray (Verkställande direktör)",
+    "raw_markdown": "**HEJMAS Agrifibre Technologies AB** har förändringar i styrelsen:  \n➕ Marek Stefan Hejduk (Ordförande)\n➕ Edward Murray (Verkställande direktör)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Marek Stefan Hejduk",
+        "role": "Ordförande"
+      },
+      {
+        "action": "added",
+        "name": "Edward Murray",
+        "role": "Verkställande direktör"
+      }
+    ],
+    "eivora_id": "20fb4634-4877-4d3e-a9cd-0cef85df4240",
+    "org_number": "5594519315",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Graytec AB",
+    "text": "Graytec AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Graytec AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "9447959b-92f6-4ed2-bee8-79a11c9f595e",
+    "org_number": "5590589700",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "SeaPattern Sweden AB",
+    "text": "SeaPattern Sweden AB har förändringar i styrelsen:  \n➕ Ronny Mårtensson (Ordförande)",
+    "raw_markdown": "**SeaPattern Sweden AB** har förändringar i styrelsen:  \n➕ Ronny Mårtensson (Ordförande)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Ronny Mårtensson",
+        "role": "Ordförande"
+      }
+    ],
+    "eivora_id": "93e01f76-abdc-43c9-9b40-0eeb590f6c54",
+    "org_number": "5592693872",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "WA3RM AB",
+    "text": "WA3RM AB har förändringar i styrelsen:  \n➕ Jimmy Pilo (Likvidator)",
+    "raw_markdown": "**WA3RM AB** har förändringar i styrelsen:  \n➕ Jimmy Pilo (Likvidator)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Jimmy Pilo",
+        "role": "Likvidator"
+      }
+    ],
+    "eivora_id": "de2137fd-651f-45bf-84e1-b3d779e6f292",
+    "org_number": "5590175096",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Nothing F!SHY AB",
+    "text": "Nothing F!SHY AB har tagit in 1,4 milj kr i kapital.",
+    "raw_markdown": "**Nothing F!SHY AB** har tagit in 1,4 milj kr i kapital.",
+    "eivora_id": "730bb778-824f-4842-84e3-a2d54f45ab8b",
+    "org_number": "5593041899",
+    "event_type": null
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Prorector AB",
+    "text": "Prorector AB  \n Konkurs",
+    "raw_markdown": "**Prorector AB**  \n📌 *Konkurs*",
+    "eivora_id": "c82c55aa-f111-42df-8880-754f1463f637",
+    "org_number": "5569670150",
+    "event_type": null
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Winteria AB",
+    "text": "Winteria AB har minskat sin nettoomsättning med 51 %, från 3,3 milj kr till 1,6 milj kr. Resultatet har förbättrats med 18 %, från -5,1 milj kr till -4,2 milj kr.",
+    "raw_markdown": "**Winteria AB** har minskat sin nettoomsättning med 51 %, från 3,3 milj kr till 1,6 milj kr. Resultatet har förbättrats med 18 %, från -5,1 milj kr till -4,2 milj kr.",
+    "eivora_id": "89cd3f60-4f11-4802-b9f6-53fb964b4c4d",
+    "org_number": "5590768536",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "Chromafora AB",
+    "text": "Chromafora AB har tagit in 41,8 milj kr i kapital.",
+    "raw_markdown": "**Chromafora AB** har tagit in 41,8 milj kr i kapital.",
+    "eivora_id": "297db97d-f9d8-4c74-94fc-d0dffdee1d47",
+    "org_number": "5568032568",
+    "event_type": null
+  },
+  {
+    "date": "2026-02-26",
+    "company": "Lupinta AB",
+    "text": "Lupinta AB har minskat sin nettoomsättning med 86 %, från 519 000 kr till 73 000 kr. Resultatet har försämrats med 54 %, från -1,1 milj kr till -1,7 milj kr.",
+    "raw_markdown": "**Lupinta AB** har minskat sin nettoomsättning med 86 %, från 519 000 kr till 73 000 kr. Resultatet har försämrats med 54 %, från -1,1 milj kr till -1,7 milj kr.",
+    "eivora_id": "a54483f8-8bc2-4449-afef-74f256c3fd94",
+    "org_number": "5592004526",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "Epspot AB",
+    "text": "Epspot AB har ökat sin nettoomsättning med 3 %, från 17,7 milj kr till 18,3 milj kr. Resultatet har försämrats med 62 %, från 108 000 kr till 41 000 kr.",
+    "raw_markdown": "**Epspot AB** har ökat sin nettoomsättning med 3 %, från 17,7 milj kr till 18,3 milj kr. Resultatet har försämrats med 62 %, från 108 000 kr till 41 000 kr.",
+    "eivora_id": "7d0ba825-3f84-4755-b613-879d0e398107",
+    "org_number": "5569655391",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "Arkion Solutions AB",
+    "text": "Arkion Solutions AB har förändringar i styrelsen:  \n➕ FREDRIK HOLMGREN (Extern verkställande direktör)",
+    "raw_markdown": "**Arkion Solutions AB** har förändringar i styrelsen:  \n➕ FREDRIK HOLMGREN (Extern verkställande direktör)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "FREDRIK HOLMGREN",
+        "role": "Extern verkställande direktör"
+      }
+    ],
+    "eivora_id": "07d0d265-c7a5-49f2-bf62-5eb4595bbfab",
+    "org_number": "5591864482",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "Edeva AB",
+    "text": "Edeva AB har ökat sin nettoomsättning med 4 %, från 7,7 milj kr till 8,0 milj kr. Resultatet har förbättrats med 17 %, från -5,0 milj kr till -4,2 milj kr.",
+    "raw_markdown": "**Edeva AB** har ökat sin nettoomsättning med 4 %, från 7,7 milj kr till 8,0 milj kr. Resultatet har förbättrats med 17 %, från -5,0 milj kr till -4,2 milj kr.",
+    "eivora_id": "28dfdb7d-e7e0-473d-b6f4-06de89baac61",
+    "org_number": "5567818769",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "PlayWellMinds AB",
+    "text": "PlayWellMinds AB har tagit in 8,1 milj kr i kapital.",
+    "raw_markdown": "**PlayWellMinds AB** har tagit in 8,1 milj kr i kapital.",
+    "eivora_id": "2063c2ad-28f0-4082-abe7-15978d683390",
+    "org_number": "5594665530",
+    "event_type": null
+  },
+  {
+    "date": "2026-02-25",
+    "company": "BK Tech Energy AB",
+    "text": "BK Tech Energy AB har minskat sin nettoomsättning med 6 %, från 228,3 milj kr till 214,3 milj kr. Resultatet har försämrats med 47 %, från 3,0 milj kr till 1,6 milj kr.",
+    "raw_markdown": "**BK Tech Energy AB** har minskat sin nettoomsättning med 6 %, från 228,3 milj kr till 214,3 milj kr. Resultatet har försämrats med 47 %, från 3,0 milj kr till 1,6 milj kr.",
+    "eivora_id": "848b7feb-d0cd-4815-ab31-df40f1b8956e",
+    "org_number": "5563052892",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-25",
+    "company": "BK Tech Group AB",
+    "text": "BK Tech Group AB har ökat sin nettoomsättning med 15 %, från 4,0 milj kr till 4,6 milj kr. Resultatet har försämrats med 95 %, från 13,7 milj kr till 665 000 kr.",
+    "raw_markdown": "**BK Tech Group AB** har ökat sin nettoomsättning med 15 %, från 4,0 milj kr till 4,6 milj kr. Resultatet har försämrats med 95 %, från 13,7 milj kr till 665 000 kr.",
+    "eivora_id": "2b12364a-0020-4ad7-ba7d-a50daad3af86",
+    "org_number": "5590381470",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-25",
+    "company": "Holyvolt AB",
+    "text": "Holyvolt AB har tagit in 81,2 milj kr i kapital.",
+    "raw_markdown": "**Holyvolt AB** har tagit in 81,2 milj kr i kapital.",
+    "eivora_id": "27a3b13f-64fa-4cd8-9b56-0ca608316584",
+    "org_number": "5593997462",
+    "event_type": null
+  },
+  {
+    "date": "2026-02-25",
+    "company": "BK Tech Group AB",
+    "text": "BK Tech Group AB har minskat sin nettoomsättning med 5 %, från 312,3 milj kr till 295,9 milj kr. Resultatet har försämrats med 80 %, från 12,2 milj kr till 2,5 milj kr.",
+    "raw_markdown": "**BK Tech Group AB** har minskat sin nettoomsättning med 5 %, från 312,3 milj kr till 295,9 milj kr. Resultatet har försämrats med 80 %, från 12,2 milj kr till 2,5 milj kr.",
+    "eivora_id": "2b12364a-0020-4ad7-ba7d-a50daad3af86",
+    "org_number": "5590381470",
+    "event_type": "company_group_accounts"
+  }
+]
