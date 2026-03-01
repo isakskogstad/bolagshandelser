@@ -1,0 +1,1387 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bolagshändelser + Breakit</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0a0a0a;
+        color: #e0e0e0;
+        min-height: 100vh;
+      }
+
+      .header {
+        padding: 24px 40px 16px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .header h1 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .header p {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+      }
+      .header .meta {
+        display: flex;
+        gap: 24px;
+        margin-top: 10px;
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+      .header .meta span {
+        color: #888;
+      }
+      .header .meta strong {
+        color: #4ade80;
+        font-weight: 500;
+      }
+
+      /* Tabs */
+      .tab-bar {
+        display: flex;
+        gap: 0;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 0 40px;
+        background: #0d0d0d;
+      }
+      .tab-btn {
+        padding: 12px 24px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .tab-btn:hover {
+        color: #aaa;
+      }
+      .tab-btn.active {
+        color: #fff;
+        border-bottom-color: #4ade80;
+      }
+      .tab-btn .badge {
+        display: inline-block;
+        padding: 1px 8px;
+        border-radius: 99px;
+        font-size: 11px;
+        margin-left: 6px;
+        background: #1a1a1a;
+        color: #888;
+      }
+      .tab-btn.active .badge {
+        background: #0c2d1b;
+        color: #4ade80;
+      }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      /* Shared styles */
+      .warning-box {
+        margin: 16px 40px 0;
+        padding: 12px 16px;
+        background: #1c1007;
+        border: 1px solid #78350f;
+        border-radius: 6px;
+        font-size: 13px;
+        color: #fbbf24;
+      }
+      .controls {
+        padding: 12px 40px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .filter-btn {
+        padding: 5px 12px;
+        border-radius: 99px;
+        border: 1px solid #333;
+        background: transparent;
+        color: #aaa;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.15s;
+      }
+      .filter-btn:hover {
+        border-color: #555;
+        color: #fff;
+      }
+      .filter-btn.active {
+        background: #fff;
+        color: #000;
+        border-color: #fff;
+      }
+      .fetch-btn {
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: 1px solid #4ade80;
+        background: transparent;
+        color: #4ade80;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.15s;
+      }
+      .fetch-btn:hover {
+        background: #4ade80;
+        color: #000;
+      }
+      .fetch-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        border-color: #333;
+        color: #555;
+        background: transparent;
+      }
+      .status-bar {
+        padding: 6px 40px;
+        font-size: 12px;
+        color: #555;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .status-bar.loading {
+        color: #fbbf24;
+      }
+      .status-bar.error {
+        color: #f87171;
+      }
+      .status-bar.success {
+        color: #4ade80;
+      }
+
+      .feed {
+        padding: 0 40px 60px;
+      }
+      .date-group {
+        margin-top: 24px;
+      }
+      .date-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #555;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #1a1a1a;
+        margin-bottom: 2px;
+      }
+
+      .event {
+        padding: 12px 0;
+        border-bottom: 1px solid #111;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: start;
+      }
+      .event:hover {
+        background: #0f0f0f;
+        margin: 0 -12px;
+        padding: 12px;
+        border-radius: 6px;
+      }
+      .event.new-event {
+        animation: fadeIn 0.4s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .event-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .icon-accounts {
+        background: #0c2d1b;
+        color: #4ade80;
+      }
+      .icon-director {
+        background: #1e1b4b;
+        color: #a78bfa;
+      }
+      .icon-capital {
+        background: #172554;
+        color: #60a5fa;
+      }
+      .icon-bankruptcy {
+        background: #2c0b0e;
+        color: #f87171;
+      }
+      .icon-press {
+        background: #1a1520;
+        color: #c084fc;
+      }
+      .icon-article {
+        background: #0f1a2e;
+        color: #38bdf8;
+      }
+      .icon-unknown {
+        background: #1a1a1a;
+        color: #888;
+      }
+
+      .event-body {
+        min-width: 0;
+      }
+      .event-company {
+        font-weight: 600;
+        color: #fff;
+        font-size: 14px;
+      }
+      .event-text {
+        font-size: 13px;
+        color: #999;
+        margin-top: 3px;
+        line-height: 1.5;
+      }
+      .event-text .positive {
+        color: #4ade80;
+      }
+      .event-text .negative {
+        color: #f87171;
+      }
+      .event-meta {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .org-nr {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 11px;
+        color: #555;
+      }
+      .event-type-badge {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 2px 8px;
+        border-radius: 99px;
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .badge-accounts {
+        background: #0c2d1b;
+        color: #4ade80;
+      }
+      .badge-director {
+        background: #1e1b4b;
+        color: #a78bfa;
+      }
+      .badge-capital {
+        background: #172554;
+        color: #60a5fa;
+      }
+      .badge-bankruptcy {
+        background: #2c0b0e;
+        color: #f87171;
+      }
+      .badge-press {
+        background: #1a1520;
+        color: #c084fc;
+      }
+      .badge-article {
+        background: #0f1a2e;
+        color: #38bdf8;
+      }
+      .badge-unknown {
+        background: #1a1a1a;
+        color: #666;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
+        padding: 16px 40px;
+      }
+      .stat {
+        background: #111;
+        border: 1px solid #1a1a1a;
+        border-radius: 8px;
+        padding: 14px;
+      }
+      .stat .val {
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .stat .label {
+        font-size: 11px;
+        color: #666;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 40px;
+        color: #444;
+      }
+      .empty-state h2 {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 8px;
+      }
+
+      /* Breakit press item */
+      .press-item {
+        padding: 14px 0;
+        border-bottom: 1px solid #111;
+      }
+      .press-item:hover {
+        background: #0f0f0f;
+        margin: 0 -12px;
+        padding: 14px 12px;
+        border-radius: 6px;
+      }
+      .press-title {
+        font-weight: 600;
+        color: #fff;
+        font-size: 14px;
+      }
+      .press-title a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .press-title a:hover {
+        color: #c084fc;
+      }
+      .press-date {
+        font-size: 11px;
+        color: #555;
+        margin-top: 4px;
+      }
+      .press-source {
+        font-size: 11px;
+        color: #666;
+        margin-left: 12px;
+      }
+      .press-ingress {
+        font-size: 13px;
+        color: #888;
+        margin-top: 6px;
+        line-height: 1.5;
+        max-height: 60px;
+        overflow: hidden;
+      }
+      .press-body {
+        font-size: 13px;
+        color: #777;
+        margin-top: 8px;
+        line-height: 1.5;
+        display: none;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .press-toggle {
+        font-size: 12px;
+        color: #4ade80;
+        cursor: pointer;
+        margin-top: 6px;
+        background: none;
+        border: none;
+      }
+      .press-toggle:hover {
+        text-decoration: underline;
+      }
+
+      /* Search box */
+      .search-box {
+        padding: 12px 40px;
+      }
+      .search-box input {
+        width: 100%;
+        max-width: 400px;
+        padding: 8px 14px;
+        background: #111;
+        border: 1px solid #333;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+      }
+      .search-box input:focus {
+        border-color: #4ade80;
+      }
+      .search-box input::placeholder {
+        color: #555;
+      }
+      .search-results {
+        padding: 0 40px 40px;
+      }
+
+      @media (max-width: 700px) {
+        .header,
+        .controls,
+        .feed,
+        .stats,
+        .status-bar,
+        .warning-box,
+        .tab-bar,
+        .search-box,
+        .search-results {
+          padding-left: 16px;
+          padding-right: 16px;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .event {
+          grid-template-columns: auto 1fr;
+        }
+        .event-meta {
+          grid-column: 1 / -1;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Bolagshändelser + Breakit</h1>
+      <p>Realtidsdata från ImpactLoop (WebSocket) och Breakit (öppet API)</p>
+      <div class="meta">
+        <span
+          id="connectionDot"
+          style="display: inline-flex; align-items: center; gap: 6px"
+        >
+          <span
+            style="
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: #555;
+              display: inline-block;
+            "
+            id="dotIndicator"
+          ></span>
+          <span id="connectionLabel">Ansluter...</span>
+        </span>
+        <span>Händelser: <strong id="eventCount">0</strong></span>
+        <span>Pressreleaser: <strong id="prCount">0</strong></span>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button
+        class="tab-btn active"
+        onclick="switchTab('impactloop')"
+        id="tab-impactloop"
+      >
+        Bolagshändelser <span class="badge" id="tab-badge-il">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('articles')" id="tab-articles">
+        Artiklar <span class="badge" id="tab-badge-art">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('breakit')" id="tab-breakit">
+        Pressreleaser <span class="badge" id="tab-badge-br">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('podcasts')" id="tab-podcasts">
+        Podcast
+      </button>
+      <button class="tab-btn" onclick="switchTab('search')" id="tab-search">
+        Sök
+      </button>
+    </div>
+
+    <!-- Tab 1: ImpactLoop Bolagshändelser -->
+    <div class="tab-panel active" id="panel-impactloop">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          flex-wrap: wrap;
+        "
+      >
+        <button
+          class="fetch-btn"
+          id="fetchBtn"
+          onclick="forceRefresh()"
+          style="margin: 0"
+        >
+          Uppdatera nu
+        </button>
+      </div>
+      <div class="status-bar" id="status">Ansluter till realtidsström...</div>
+      <div class="stats" id="stats"></div>
+      <div class="controls" id="controls"></div>
+      <div class="feed" id="feed">
+        <div class="empty-state">
+          <h2>Ingen data hämtad</h2>
+          <p>Ansluter till ImpactLoop...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Breakit Articles (free, with full body) -->
+    <div class="tab-panel" id="panel-articles">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        "
+      >
+        <button class="fetch-btn" onclick="loadArticles()">
+          Hämta senaste
+        </button>
+        <span class="status-bar" id="articles-status" style="padding: 0"></span>
+      </div>
+      <div class="controls" id="articles-filter"></div>
+      <div class="stats" id="articles-stats"></div>
+      <div class="feed" id="articles-feed">
+        <div class="empty-state"><h2>Laddar artiklar...</h2></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Breakit Pressreleases -->
+    <div class="tab-panel" id="panel-breakit">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        "
+      >
+        <button class="fetch-btn" onclick="refreshBreakitPR()">
+          Hämta senaste
+        </button>
+        <span class="status-bar" id="breakit-status" style="padding: 0"></span>
+      </div>
+      <div class="stats" id="breakit-stats"></div>
+      <div class="feed" id="breakit-feed">
+        <div class="empty-state"><h2>Laddar pressreleaser...</h2></div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Podcasts -->
+    <div class="tab-panel" id="panel-podcasts">
+      <div class="feed" id="podcasts-feed">
+        <div class="empty-state"><h2>Laddar podcasts...</h2></div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Search Breakit -->
+    <div class="tab-panel" id="panel-search">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Sök artiklar (nyemission, förvärv, konkurs...)"
+          onkeydown="if (event.key === 'Enter') doSearch();"
+        />
+      </div>
+      <div class="search-results" id="search-results">
+        <div class="empty-state">
+          <h2>Sök bland Breakits artiklar</h2>
+          <p>Data hämtas anonymt från api.breakit.se</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const BASE = "http://localhost:9999";
+      const SSE_URL = BASE + "/api/stream";
+      const REFRESH_URL = BASE + "/api/refresh";
+
+      let ALL_EVENTS = [];
+      let eventKeys = new Set();
+      let fetchCount = 0;
+      let activeFilter = "all";
+      let evtSource = null;
+      let breakitPRs = [];
+      let currentTab = "impactloop";
+
+      const TYPE_CONFIG = {
+        company_accounts: {
+          icon: "\ud83d\udcca",
+          label: "Bokslut",
+          iconClass: "icon-accounts",
+          badgeClass: "badge-accounts",
+        },
+        company_group_accounts: {
+          icon: "\ud83d\udcca",
+          label: "Koncernbok",
+          iconClass: "icon-accounts",
+          badgeClass: "badge-accounts",
+        },
+        company_director: {
+          icon: "\ud83d\udc64",
+          label: "Styrelse",
+          iconClass: "icon-director",
+          badgeClass: "badge-director",
+        },
+        company_capital: {
+          icon: "\ud83d\udcb0",
+          label: "Kapital",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        company_new_share_issue: {
+          icon: "\ud83d\udcb0",
+          label: "Nyemission",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        capital: {
+          icon: "\ud83d\udcb0",
+          label: "Kapital",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        company_bankruptcy: {
+          icon: "\u26a0\ufe0f",
+          label: "Konkurs",
+          iconClass: "icon-bankruptcy",
+          badgeClass: "badge-bankruptcy",
+        },
+        bankruptcy: {
+          icon: "\u26a0\ufe0f",
+          label: "Konkurs",
+          iconClass: "icon-bankruptcy",
+          badgeClass: "badge-bankruptcy",
+        },
+        unknown: {
+          icon: "\ud83d\udccb",
+          label: "\u00d6vrigt",
+          iconClass: "icon-unknown",
+          badgeClass: "badge-unknown",
+        },
+      };
+
+      // --- Tab switching ---
+      function switchTab(tab) {
+        currentTab = tab;
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("tab-" + tab).classList.add("active");
+        document.getElementById("panel-" + tab).classList.add("active");
+
+        if (tab === "breakit" && breakitPRs.length === 0) loadBreakitPR();
+        if (tab === "articles" && breakitArticles.length === 0) loadArticles();
+        if (tab === "podcasts") loadPodcasts();
+      }
+
+      // --- Connection ---
+      function setConnection(state) {
+        const dot = document.getElementById("dotIndicator");
+        const label = document.getElementById("connectionLabel");
+        if (state === "connected") {
+          dot.style.background = "#4ade80";
+          label.textContent = "Ansluten";
+          label.style.color = "#4ade80";
+        } else if (state === "connecting") {
+          dot.style.background = "#fbbf24";
+          label.textContent = "Ansluter...";
+          label.style.color = "#fbbf24";
+        } else {
+          dot.style.background = "#f87171";
+          label.textContent = "Fr\u00e5nkopplad";
+          label.style.color = "#f87171";
+        }
+      }
+      function setStatus(msg, cls) {
+        const el = document.getElementById("status");
+        el.textContent = msg;
+        el.className = "status-bar " + (cls || "");
+      }
+
+      // --- ImpactLoop ---
+      function classifyEvent(e) {
+        if (e.event_type) return e.event_type;
+        if (/kapital/i.test(e.text)) return "capital";
+        if (/konkurs/i.test(e.text)) return "bankruptcy";
+        return "unknown";
+      }
+      function highlightNumbers(text) {
+        return text
+          .replace(
+            /f\u00f6rb\u00e4ttrats/g,
+            '<span class="positive">f\u00f6rb\u00e4ttrats</span>',
+          )
+          .replace(/\u00f6kat/g, '<span class="positive">\u00f6kat</span>')
+          .replace(
+            /f\u00f6rs\u00e4mrats/g,
+            '<span class="negative">f\u00f6rs\u00e4mrats</span>',
+          )
+          .replace(/minskat/g, '<span class="negative">minskat</span>')
+          .replace(/Konkurs/g, '<span class="negative">Konkurs</span>');
+      }
+      function formatOrgNr(nr) {
+        if (!nr || nr.length !== 10) return nr || "\u2014";
+        return nr.slice(0, 6) + "-" + nr.slice(6);
+      }
+      function eventKey(e) {
+        return `${e.org_number}_${e.date}_${e.event_type}_${e.company}`;
+      }
+
+      function mergeEvents(events, markNew) {
+        let added = 0;
+        for (const e of events) {
+          const key = eventKey(e);
+          if (!eventKeys.has(key)) {
+            if (markNew) e._new = true;
+            ALL_EVENTS.push(e);
+            eventKeys.add(key);
+            added++;
+          }
+        }
+        ALL_EVENTS.sort((a, b) => b.date.localeCompare(a.date));
+        document.getElementById("eventCount").textContent = ALL_EVENTS.length;
+        document.getElementById("tab-badge-il").textContent = ALL_EVENTS.length;
+        return added;
+      }
+
+      function connectSSE() {
+        if (evtSource) evtSource.close();
+        setConnection("connecting");
+        setStatus("Ansluter till realtidsstr\u00f6m...", "loading");
+        evtSource = new EventSource(SSE_URL);
+
+        evtSource.addEventListener("init", function (e) {
+          const events = JSON.parse(e.data);
+          fetchCount++;
+          mergeEvents(events, false);
+          setConnection("connected");
+          setStatus(
+            `Ansluten \u2014 ${ALL_EVENTS.length} h\u00e4ndelser. Auto-uppdatering var 10 min.`,
+            "success",
+          );
+          renderStats();
+          renderFilters();
+          renderFeed();
+        });
+        evtSource.addEventListener("update", function (e) {
+          let parsed;
+          try {
+            parsed = JSON.parse(e.data);
+          } catch (_) {
+            return;
+          }
+          // Check if it's a breakit update
+          if (parsed.type === "breakit" && parsed.pressreleases) {
+            mergePressreleases(parsed.pressreleases);
+            if (currentTab === "breakit") renderBreakitFeed();
+            return;
+          }
+          // Otherwise it's ImpactLoop events
+          fetchCount++;
+          const added = mergeEvents(parsed, true);
+          if (added > 0) {
+            setStatus(
+              `${added} nya h\u00e4ndelser! Totalt: ${ALL_EVENTS.length}.`,
+              "success",
+            );
+            renderStats();
+            renderFilters();
+            renderFeed();
+            setTimeout(() => {
+              ALL_EVENTS.forEach((ev) => delete ev._new);
+            }, 1500);
+          }
+        });
+        evtSource.addEventListener("open", () => setConnection("connected"));
+        evtSource.addEventListener("error", () => {
+          setConnection("disconnected");
+          setStatus(
+            "Tappade anslutningen \u2014 \u00e5teransluter...",
+            "error",
+          );
+        });
+      }
+
+      async function forceRefresh() {
+        const btn = document.getElementById("fetchBtn");
+        btn.disabled = true;
+        btn.textContent = "H\u00e4mtar...";
+        setStatus(
+          "Tvingar ny h\u00e4mtning fr\u00e5n ImpactLoop...",
+          "loading",
+        );
+        try {
+          const resp = await fetch(REFRESH_URL);
+          const data = await resp.json();
+          if (data.error) throw new Error(data.error);
+          setStatus(
+            `H\u00e4mtade ${data.fetched} fr\u00e5n ImpactLoop, ${data.new} nya. Totalt: ${data.total}.`,
+            "success",
+          );
+        } catch (err) {
+          setStatus(`Fel: ${err.message}`, "error");
+        }
+        btn.disabled = false;
+        btn.textContent = "Uppdatera nu";
+      }
+
+      function renderStats() {
+        const accounts = ALL_EVENTS.filter((e) =>
+          classifyEvent(e).includes("accounts"),
+        ).length;
+        const directors = ALL_EVENTS.filter(
+          (e) => classifyEvent(e) === "company_director",
+        ).length;
+        const capitals = ALL_EVENTS.filter((e) => {
+          const c = classifyEvent(e);
+          return (
+            c === "capital" ||
+            c === "company_capital" ||
+            c === "company_new_share_issue"
+          );
+        }).length;
+        const bankruptcies = ALL_EVENTS.filter((e) => {
+          const c = classifyEvent(e);
+          return c === "bankruptcy" || c === "company_bankruptcy";
+        }).length;
+        const uniqueCompanies = new Set(ALL_EVENTS.map((e) => e.org_number))
+          .size;
+        document.getElementById("stats").innerHTML = `
+          <div class="stat"><div class="val">${ALL_EVENTS.length}</div><div class="label">H\u00e4ndelser</div></div>
+          <div class="stat"><div class="val">${uniqueCompanies}</div><div class="label">Bolag</div></div>
+          <div class="stat"><div class="val">${accounts}</div><div class="label">Bokslut</div></div>
+          <div class="stat"><div class="val">${directors}</div><div class="label">Styrelse</div></div>
+          <div class="stat"><div class="val">${capitals}</div><div class="label">Kapital</div></div>
+          <div class="stat"><div class="val">${bankruptcies}</div><div class="label">Konkurser</div></div>`;
+      }
+
+      function renderFilters() {
+        const types = [
+          "all",
+          "company_accounts",
+          "company_director",
+          "capital",
+          "bankruptcy",
+        ];
+        const labels = {
+          all: "Alla",
+          company_accounts: "Bokslut",
+          company_director: "Styrelse",
+          capital: "Kapital",
+          bankruptcy: "Konkurs",
+        };
+        document.getElementById("controls").innerHTML = types
+          .map(
+            (t) =>
+              `<button class="filter-btn ${activeFilter === t ? "active" : ""}" onclick="setFilter('${t}')">${labels[t]}</button>`,
+          )
+          .join("");
+      }
+      function setFilter(type) {
+        activeFilter = type;
+        renderFilters();
+        renderFeed();
+      }
+
+      function renderFeed() {
+        if (!ALL_EVENTS.length) {
+          document.getElementById("feed").innerHTML =
+            '<div class="empty-state"><h2>V\u00e4ntar p\u00e5 data...</h2></div>';
+          return;
+        }
+        const filtered =
+          activeFilter === "all"
+            ? ALL_EVENTS
+            : ALL_EVENTS.filter((e) => {
+                const c = classifyEvent(e);
+                if (activeFilter === "capital")
+                  return (
+                    c === "capital" ||
+                    c === "company_capital" ||
+                    c === "company_new_share_issue"
+                  );
+                if (activeFilter === "bankruptcy")
+                  return c === "bankruptcy" || c === "company_bankruptcy";
+                if (activeFilter === "company_accounts")
+                  return c.includes("accounts");
+                return c === activeFilter;
+              });
+
+        const grouped = {};
+        filtered.forEach((e) => {
+          if (!grouped[e.date]) grouped[e.date] = [];
+          grouped[e.date].push(e);
+        });
+
+        let html = "";
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((e) => {
+              const type = classifyEvent(e);
+              const cfg = TYPE_CONFIG[type] || TYPE_CONFIG.unknown;
+              const cleanText = e.text
+                .replace(e.company, "")
+                .replace(/^\s+/, "")
+                .replace(/\n/g, "<br>");
+              let boardHtml = "";
+              if (e.board_changes && e.board_changes.length > 0) {
+                boardHtml =
+                  '<div style="margin-top:6px;">' +
+                  e.board_changes
+                    .map((bc) => {
+                      const color =
+                        bc.action === "added" ? "#4ade80" : "#f87171";
+                      const symbol = bc.action === "added" ? "+" : "-";
+                      return `<div style="font-size:12px;color:${color};margin-top:2px;"><span style="font-weight:600;">${symbol}</span> ${bc.name} <span style="color:#666;">(${bc.role})</span></div>`;
+                    })
+                    .join("") +
+                  "</div>";
+              }
+              html += `
+            <div class="event ${e._new ? "new-event" : ""}">
+              <div class="event-icon ${cfg.iconClass}">${cfg.icon}</div>
+              <div class="event-body">
+                <div class="event-company">${e.company}</div>
+                <div class="event-text">${highlightNumbers(cleanText)}</div>
+                ${boardHtml}
+              </div>
+              <div class="event-meta">
+                <div class="org-nr">${formatOrgNr(e.org_number)}</div>
+                <div><span class="event-type-badge ${cfg.badgeClass}">${cfg.label}</span></div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("feed").innerHTML =
+          html ||
+          '<p style="padding:40px 0;color:#555;">Inga h\u00e4ndelser matchar filtret.</p>';
+      }
+
+      // --- Breakit Pressreleases ---
+      function mergePressreleases(prs) {
+        for (const pr of prs) {
+          if (!breakitPRs.find((p) => p.id === pr.id)) {
+            breakitPRs.push(pr);
+          }
+        }
+        breakitPRs.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+        document.getElementById("prCount").textContent = breakitPRs.length;
+        document.getElementById("tab-badge-br").textContent = breakitPRs.length;
+      }
+
+      async function loadBreakitPR() {
+        document.getElementById("breakit-status").textContent =
+          "H\u00e4mtar...";
+        try {
+          const resp = await fetch(BASE + "/api/breakit/pressreleases");
+          const data = await resp.json();
+          mergePressreleases(data);
+          renderBreakitFeed();
+          document.getElementById("breakit-status").textContent =
+            `${breakitPRs.length} pressreleaser laddade`;
+          document.getElementById("breakit-status").className =
+            "status-bar success";
+        } catch (err) {
+          document.getElementById("breakit-status").textContent =
+            "Fel: " + err.message;
+          document.getElementById("breakit-status").className =
+            "status-bar error";
+        }
+      }
+
+      async function refreshBreakitPR() {
+        await loadBreakitPR();
+      }
+
+      function stripHtml(html) {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+      }
+
+      function renderBreakitFeed() {
+        if (!breakitPRs.length) {
+          document.getElementById("breakit-feed").innerHTML =
+            '<div class="empty-state"><h2>Inga pressreleaser</h2></div>';
+          return;
+        }
+
+        // Stats
+        const sources = {};
+        breakitPRs.forEach((pr) => {
+          const src = pr.sourceName || "Ok\u00e4nd";
+          sources[src] = (sources[src] || 0) + 1;
+        });
+        const topSources = Object.entries(sources)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 5);
+        document.getElementById("breakit-stats").innerHTML = `
+          <div class="stat"><div class="val">${breakitPRs.length}</div><div class="label">Pressreleaser</div></div>
+          <div class="stat"><div class="val">${Object.keys(sources).length}</div><div class="label">K\u00e4llor</div></div>
+          <div class="stat"><div class="val">${
+            breakitPRs.filter((p) => {
+              const d = p.date || "";
+              return d >= new Date().toISOString().slice(0, 10);
+            }).length
+          }</div><div class="label">Idag</div></div>`;
+
+        let html = "";
+        const grouped = {};
+        breakitPRs.forEach((pr) => {
+          const date = (pr.date || "").slice(0, 10);
+          if (!grouped[date]) grouped[date] = [];
+          grouped[date].push(pr);
+        });
+
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((pr) => {
+              const ingress = stripHtml(pr.ingress || "").slice(0, 200);
+              const source = pr.sourceName || "";
+              const prId = pr.id;
+              html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-press">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">${pr.name || "Utan titel"}</div>
+                  <div class="press-date">${(pr.date || "").slice(0, 16).replace("T", " ")}${source ? `<span class="press-source">${source}</span>` : ""}</div>
+                  <div class="press-ingress">${ingress}</div>
+                  <button class="press-toggle" onclick="togglePR(${prId})">Visa mer</button>
+                  <div class="press-body" id="pr-body-${prId}">${pr.body || ""}</div>
+                </div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("breakit-feed").innerHTML = html;
+      }
+
+      function togglePR(id) {
+        const body = document.getElementById("pr-body-" + id);
+        if (body.style.display === "block") {
+          body.style.display = "none";
+          body.previousElementSibling.textContent = "Visa mer";
+        } else {
+          body.style.display = "block";
+          body.previousElementSibling.textContent = "D\u00f6lj";
+        }
+      }
+
+      // --- Breakit Articles (free, full body) ---
+      let breakitArticles = [];
+      let articleFilter = "all";
+
+      async function loadArticles() {
+        document.getElementById("articles-status").textContent = "Hämtar...";
+        try {
+          const resp = await fetch(BASE + "/api/breakit/articles");
+          const data = await resp.json();
+          breakitArticles = data.filter(
+            (a) => !a.isPremium && (a.body || "").length > 0,
+          );
+          breakitArticles.sort((a, b) =>
+            (b.date || "").localeCompare(a.date || ""),
+          );
+          document.getElementById("tab-badge-art").textContent =
+            breakitArticles.length;
+          document.getElementById("articles-status").textContent =
+            `${breakitArticles.length} fria artiklar med fulltext`;
+          document.getElementById("articles-status").className =
+            "status-bar success";
+          renderArticleStats();
+          renderArticleFilters();
+          renderArticleFeed();
+        } catch (err) {
+          document.getElementById("articles-status").textContent =
+            "Fel: " + err.message;
+          document.getElementById("articles-status").className =
+            "status-bar error";
+        }
+      }
+
+      function renderArticleStats() {
+        const companies = new Set();
+        const tags = {};
+        breakitArticles.forEach((a) => {
+          (a.companies || []).forEach((c) => companies.add(c.name));
+          (a.subject_tags || []).forEach((t) => {
+            tags[t.name] = (tags[t.name] || 0) + 1;
+          });
+        });
+        const topTags = Object.entries(tags)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6);
+        document.getElementById("articles-stats").innerHTML = `
+          <div class="stat"><div class="val">${breakitArticles.length}</div><div class="label">Fria artiklar</div></div>
+          <div class="stat"><div class="val">${companies.size}</div><div class="label">N\u00e4mnda bolag</div></div>
+          <div class="stat"><div class="val">${Object.keys(tags).length}</div><div class="label">Taggar</div></div>
+          <div class="stat"><div class="val">${topTags.length > 0 ? topTags[0][0] : "-"}</div><div class="label">Topptagg</div></div>`;
+      }
+
+      function renderArticleFilters() {
+        const tags = {};
+        breakitArticles.forEach((a) => {
+          (a.subject_tags || []).forEach((t) => {
+            tags[t.name] = (tags[t.name] || 0) + 1;
+          });
+        });
+        const topTags = Object.entries(tags)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8);
+        let html = `<button class="filter-btn ${articleFilter === "all" ? "active" : ""}" onclick="setArticleFilter('all')">Alla</button>`;
+        topTags.forEach(([tag]) => {
+          html += `<button class="filter-btn ${articleFilter === tag ? "active" : ""}" onclick="setArticleFilter('${tag.replace(/'/g, "\\'")}')">${tag}</button>`;
+        });
+        document.getElementById("articles-filter").innerHTML = html;
+      }
+
+      function setArticleFilter(tag) {
+        articleFilter = tag;
+        renderArticleFilters();
+        renderArticleFeed();
+      }
+
+      function renderArticleFeed() {
+        let filtered = breakitArticles;
+        if (articleFilter !== "all") {
+          filtered = breakitArticles.filter((a) =>
+            (a.subject_tags || []).some((t) => t.name === articleFilter),
+          );
+        }
+
+        if (!filtered.length) {
+          document.getElementById("articles-feed").innerHTML =
+            '<div class="empty-state"><h2>Inga artiklar</h2></div>';
+          return;
+        }
+
+        const grouped = {};
+        filtered.forEach((a) => {
+          const date = (a.date || "").slice(0, 10);
+          if (!grouped[date]) grouped[date] = [];
+          grouped[date].push(a);
+        });
+
+        let html = "";
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((a) => {
+              const tags = (a.subject_tags || [])
+                .map(
+                  (t) =>
+                    `<span class="event-type-badge badge-article">${t.name}</span>`,
+                )
+                .join(" ");
+              const companies = (a.companies || [])
+                .map((c) => c.name)
+                .join(", ");
+              const persons = (a.persons || []).map((p) => p.name).join(", ");
+              const ingress = stripHtml(a.ingress || "").slice(0, 200);
+              const artId = a.id;
+              const slug = a.slug || "";
+
+              html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-article">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">
+                    <a href="https://www.breakit.se/artikel/${artId}/${slug}" target="_blank">${a.name || "?"}</a>
+                  </div>
+                  <div class="press-date">
+                    ${(a.date || "").slice(0, 16).replace("T", " ")}
+                    ${a.user ? `<span class="press-source">${a.user.fullName || ""}</span>` : ""}
+                  </div>
+                  ${companies ? `<div style="font-size:11px;color:#60a5fa;margin-top:3px;">Bolag: ${companies}</div>` : ""}
+                  ${persons ? `<div style="font-size:11px;color:#a78bfa;margin-top:2px;">Personer: ${persons}</div>` : ""}
+                  <div style="margin-top:4px;">${tags}</div>
+                  ${ingress ? `<div class="press-ingress">${ingress}</div>` : ""}
+                  <button class="press-toggle" onclick="toggleArt(${artId})">L\u00e4s artikeln</button>
+                  <div class="press-body" id="art-body-${artId}">${a.body || ""}</div>
+                </div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("articles-feed").innerHTML = html;
+      }
+
+      function toggleArt(id) {
+        const body = document.getElementById("art-body-" + id);
+        if (body.style.display === "block") {
+          body.style.display = "none";
+          body.previousElementSibling.textContent = "L\u00e4s artikeln";
+        } else {
+          body.style.display = "block";
+          body.previousElementSibling.textContent = "D\u00f6lj";
+        }
+      }
+
+      // --- Podcasts ---
+      async function loadPodcasts() {
+        try {
+          const resp = await fetch(BASE + "/api/breakit/podcasts");
+          const pods = await resp.json();
+          if (!pods.length) {
+            document.getElementById("podcasts-feed").innerHTML =
+              '<div class="empty-state"><h2>Inga podcasts</h2></div>';
+            return;
+          }
+          let html = "";
+          pods.forEach((p) => {
+            const ingress = stripHtml(p.ingress || "").slice(0, 250);
+            html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                ${p.imagePath ? `<img src="${p.imagePath}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;" alt="">` : '<div class="event-icon" style="background:#1a1520;color:#c084fc;">🎙</div>'}
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">${p.name || "?"}</div>
+                  <div class="press-date">${(p.date || "").slice(0, 10)} ${p.episode ? `<span class="press-source">Avsnitt ${p.episode}</span>` : ""}</div>
+                  <div class="press-ingress">${ingress}</div>
+                  ${p.soundcloud ? `<div style="margin-top:8px;"><iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(p.soundcloud)}&color=%234ade80&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false" style="border-radius:8px;"></iframe></div>` : ""}
+                </div>
+              </div>
+            </div>`;
+          });
+          document.getElementById("podcasts-feed").innerHTML = html;
+        } catch (err) {
+          document.getElementById("podcasts-feed").innerHTML =
+            `<div class="empty-state"><h2>Fel: ${err.message}</h2></div>`;
+        }
+      }
+
+      // --- Search ---
+      async function doSearch() {
+        const q = document.getElementById("searchInput").value.trim();
+        if (!q) return;
+        const container = document.getElementById("search-results");
+        container.innerHTML =
+          '<div class="empty-state"><h2>S\u00f6ker...</h2></div>';
+        try {
+          const resp = await fetch(
+            BASE + "/api/breakit/search?q=" + encodeURIComponent(q),
+          );
+          const data = await resp.json();
+          if (data.error) throw new Error(data.error);
+          if (!data.length) {
+            container.innerHTML =
+              '<div class="empty-state"><h2>Inga resultat</h2></div>';
+            return;
+          }
+          let html = `<div style="padding:8px 0;font-size:12px;color:#666;">${data.length} resultat f\u00f6r "${q}"</div>`;
+          data.forEach((item) => {
+            const d = item.data || {};
+            const isPremium = d.isPremium;
+            const hasBody = d.body && d.body.length > 0;
+            html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon ${isPremium ? "icon-capital" : "icon-article"}">${isPremium ? "\ud83d\udd12" : "\ud83d\udcf0"}</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">
+                    <a href="https://www.breakit.se/artikel/${d.id}/${d.slug || ""}" target="_blank">${d.name || "?"}</a>
+                    ${isPremium ? '<span class="event-type-badge badge-capital">Premium</span>' : ""}
+                  </div>
+                  <div class="press-date">${(d.date || "").slice(0, 16).replace("T", " ")}</div>
+                  ${d.ingress ? `<div class="press-ingress">${stripHtml(d.ingress).slice(0, 250)}</div>` : ""}
+                  ${hasBody ? `<button class="press-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.textContent=this.nextElementSibling.style.display==='block'?'D\u00f6lj':'L\u00e4s mer'">L\u00e4s mer</button><div class="press-body">${d.body}</div>` : ""}
+                </div>
+              </div>
+            </div>`;
+          });
+          container.innerHTML = html;
+        } catch (err) {
+          container.innerHTML = `<div class="empty-state"><h2>Fel: ${err.message}</h2></div>`;
+        }
+      }
+
+      // --- Start ---
+      (async function start() {
+        setStatus("V\u00e4ntar p\u00e5 server...", "loading");
+        setConnection("connecting");
+        for (let attempt = 0; attempt < 15; attempt++) {
+          try {
+            const resp = await fetch(BASE + "/api/status", {
+              signal: AbortSignal.timeout(2000),
+            });
+            if (resp.ok) {
+              connectSSE();
+              return;
+            }
+          } catch (_) {}
+          setStatus(
+            `V\u00e4ntar p\u00e5 server... (${attempt + 1}/15)`,
+            "loading",
+          );
+          await new Promise((r) => setTimeout(r, 1500));
+        }
+        setConnection("disconnected");
+        setStatus(
+          "Servern svarar inte. Dubbelklicka Bolags\u00e4ndelser.command.",
+          "error",
+        );
+      })();
+    </script>
+  </body>
+</html>

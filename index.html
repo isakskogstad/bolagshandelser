@@ -1,0 +1,1308 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bolagshändelser + Breakit</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0a0a0a;
+        color: #e0e0e0;
+        min-height: 100vh;
+      }
+
+      .header {
+        padding: 24px 40px 16px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .header h1 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .header p {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+      }
+      .header .meta {
+        display: flex;
+        gap: 24px;
+        margin-top: 10px;
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+      .header .meta span {
+        color: #888;
+      }
+      .header .meta strong {
+        color: #4ade80;
+        font-weight: 500;
+      }
+
+      /* Tabs */
+      .tab-bar {
+        display: flex;
+        gap: 0;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 0 40px;
+        background: #0d0d0d;
+      }
+      .tab-btn {
+        padding: 12px 24px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .tab-btn:hover {
+        color: #aaa;
+      }
+      .tab-btn.active {
+        color: #fff;
+        border-bottom-color: #4ade80;
+      }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 10px;
+        font-size: 11px;
+        background: #1a1a1a;
+        color: #888;
+        margin-left: 6px;
+      }
+
+      /* Status */
+      .status-bar {
+        padding: 10px 40px;
+        font-size: 12px;
+        color: #666;
+      }
+      .status-bar.success {
+        color: #4ade80;
+      }
+      .status-bar.error {
+        color: #f87171;
+      }
+      .status-bar.loading {
+        color: #fbbf24;
+      }
+
+      /* Controls */
+      .controls {
+        padding: 8px 40px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .filter-btn {
+        padding: 6px 14px;
+        border-radius: 16px;
+        border: 1px solid #222;
+        background: #111;
+        color: #888;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .filter-btn:hover {
+        border-color: #333;
+        color: #bbb;
+      }
+      .filter-btn.active {
+        background: #4ade80;
+        color: #000;
+        border-color: #4ade80;
+      }
+
+      .fetch-btn {
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #111;
+        color: #4ade80;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .fetch-btn:hover {
+        background: #1a1a1a;
+        border-color: #4ade80;
+      }
+      .fetch-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* Feed */
+      .feed {
+        padding: 0 40px 40px;
+      }
+      .date-group {
+        margin-top: 20px;
+      }
+      .date-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 0 6px;
+        border-bottom: 1px solid #1a1a1a;
+        margin-bottom: 4px;
+      }
+      .event {
+        display: grid;
+        grid-template-columns: 40px 1fr auto;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #111;
+        align-items: start;
+        transition: background 0.2s;
+      }
+      .event:hover {
+        background: #0f0f0f;
+        margin: 0 -12px;
+        padding: 12px;
+        border-radius: 6px;
+      }
+      .new-event {
+        animation: fadeIn 0.4s ease;
+        background: rgba(74, 222, 128, 0.03);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .event-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+      .icon-accounts {
+        background: #0a2818;
+        color: #4ade80;
+      }
+      .icon-director {
+        background: #1e1b4b;
+        color: #a78bfa;
+      }
+      .icon-capital {
+        background: #172554;
+        color: #60a5fa;
+      }
+      .icon-bankruptcy {
+        background: #2c0b0e;
+        color: #f87171;
+      }
+      .icon-press {
+        background: #1a1520;
+        color: #c084fc;
+      }
+      .icon-article {
+        background: #0f1a2e;
+        color: #38bdf8;
+      }
+      .icon-unknown {
+        background: #1a1a1a;
+        color: #666;
+      }
+      .event-body {
+        min-width: 0;
+      }
+      .event-company {
+        font-weight: 600;
+        color: #fff;
+        font-size: 14px;
+      }
+      .event-text {
+        font-size: 13px;
+        color: #999;
+        margin-top: 3px;
+        line-height: 1.5;
+        word-wrap: break-word;
+      }
+      .positive {
+        color: #4ade80;
+        font-weight: 500;
+      }
+      .negative {
+        color: #f87171;
+        font-weight: 500;
+      }
+      .event-meta {
+        text-align: right;
+        white-space: nowrap;
+      }
+      .org-nr {
+        font-size: 11px;
+        color: #555;
+        font-family: monospace;
+      }
+      .event-type-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+      .badge-accounts {
+        background: #0a2818;
+        color: #4ade80;
+      }
+      .badge-director {
+        background: #1e1b4b;
+        color: #a78bfa;
+      }
+      .badge-capital {
+        background: #172554;
+        color: #60a5fa;
+      }
+      .badge-bankruptcy {
+        background: #2c0b0e;
+        color: #f87171;
+      }
+      .badge-press {
+        background: #1a1520;
+        color: #c084fc;
+      }
+      .badge-article {
+        background: #0f1a2e;
+        color: #38bdf8;
+      }
+      .badge-unknown {
+        background: #1a1a1a;
+        color: #666;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
+        padding: 16px 40px;
+      }
+      .stat {
+        background: #111;
+        border: 1px solid #1a1a1a;
+        border-radius: 8px;
+        padding: 14px;
+      }
+      .stat .val {
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .stat .label {
+        font-size: 11px;
+        color: #666;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 40px;
+        color: #444;
+      }
+      .empty-state h2 {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 8px;
+      }
+
+      /* Breakit press item */
+      .press-item {
+        padding: 14px 0;
+        border-bottom: 1px solid #111;
+      }
+      .press-item:hover {
+        background: #0f0f0f;
+        margin: 0 -12px;
+        padding: 14px 12px;
+        border-radius: 6px;
+      }
+      .press-title {
+        font-weight: 600;
+        color: #fff;
+        font-size: 14px;
+      }
+      .press-title a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .press-title a:hover {
+        color: #c084fc;
+      }
+      .press-date {
+        font-size: 11px;
+        color: #555;
+        margin-top: 4px;
+      }
+      .press-source {
+        font-size: 11px;
+        color: #666;
+        margin-left: 12px;
+      }
+      .press-ingress {
+        font-size: 13px;
+        color: #888;
+        margin-top: 6px;
+        line-height: 1.5;
+        max-height: 60px;
+        overflow: hidden;
+      }
+      .press-body {
+        font-size: 13px;
+        color: #777;
+        margin-top: 8px;
+        line-height: 1.5;
+        display: none;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .press-toggle {
+        font-size: 12px;
+        color: #4ade80;
+        cursor: pointer;
+        margin-top: 6px;
+        background: none;
+        border: none;
+      }
+      .press-toggle:hover {
+        text-decoration: underline;
+      }
+
+      /* Search box */
+      .search-box {
+        padding: 12px 40px;
+      }
+      .search-box input {
+        width: 100%;
+        max-width: 400px;
+        padding: 8px 14px;
+        background: #111;
+        border: 1px solid #333;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+      }
+      .search-box input:focus {
+        border-color: #4ade80;
+      }
+      .search-box input::placeholder {
+        color: #555;
+      }
+      .search-results {
+        padding: 0 40px 40px;
+      }
+
+      @media (max-width: 700px) {
+        .header,
+        .controls,
+        .feed,
+        .stats,
+        .status-bar,
+        .tab-bar,
+        .search-box,
+        .search-results {
+          padding-left: 16px;
+          padding-right: 16px;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .event {
+          grid-template-columns: auto 1fr;
+        }
+        .event-meta {
+          grid-column: 1 / -1;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Bolagshändelser + Breakit</h1>
+      <p>
+        Data från ImpactLoop och Breakit — uppdateras var 30:e minut via GitHub
+        Actions
+      </p>
+      <div class="meta">
+        <span
+          id="lastUpdated"
+          style="display: inline-flex; align-items: center; gap: 6px"
+        >
+          <span
+            style="
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: #555;
+              display: inline-block;
+            "
+            id="dotIndicator"
+          ></span>
+          <span id="connectionLabel">Laddar...</span>
+        </span>
+        <span>Händelser: <strong id="eventCount">0</strong></span>
+        <span>Pressreleaser: <strong id="prCount">0</strong></span>
+        <span>Senast uppdaterad: <strong id="lastFetchTime">—</strong></span>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button
+        class="tab-btn active"
+        onclick="switchTab('impactloop')"
+        id="tab-impactloop"
+      >
+        Bolagshändelser <span class="badge" id="tab-badge-il">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('articles')" id="tab-articles">
+        Artiklar <span class="badge" id="tab-badge-art">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('breakit')" id="tab-breakit">
+        Pressreleaser <span class="badge" id="tab-badge-br">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('search')" id="tab-search">
+        Sök
+      </button>
+    </div>
+
+    <!-- Tab 1: ImpactLoop Bolagshändelser -->
+    <div class="tab-panel active" id="panel-impactloop">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          flex-wrap: wrap;
+        "
+      >
+        <button
+          class="fetch-btn"
+          id="fetchBtn"
+          onclick="loadAllData()"
+          style="margin: 0"
+        >
+          Uppdatera
+        </button>
+      </div>
+      <div class="status-bar" id="status">Laddar data...</div>
+      <div class="stats" id="stats"></div>
+      <div class="controls" id="controls"></div>
+      <div class="feed" id="feed">
+        <div class="empty-state">
+          <h2>Ingen data hämtad</h2>
+          <p>Laddar...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Breakit Articles -->
+    <div class="tab-panel" id="panel-articles">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        "
+      >
+        <span class="status-bar" id="articles-status" style="padding: 0"></span>
+      </div>
+      <div class="controls" id="articles-filter"></div>
+      <div class="stats" id="articles-stats"></div>
+      <div class="feed" id="articles-feed">
+        <div class="empty-state"><h2>Laddar artiklar...</h2></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Breakit Pressreleases -->
+    <div class="tab-panel" id="panel-breakit">
+      <div
+        style="
+          padding: 12px 40px 0;
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        "
+      >
+        <span class="status-bar" id="breakit-status" style="padding: 0"></span>
+      </div>
+      <div class="stats" id="breakit-stats"></div>
+      <div class="feed" id="breakit-feed">
+        <div class="empty-state"><h2>Laddar pressreleaser...</h2></div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Search Breakit -->
+    <div class="tab-panel" id="panel-search">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Sök bland lokala artiklar och pressreleaser..."
+          onkeydown="if (event.key === 'Enter') doSearch();"
+        />
+      </div>
+      <div class="search-results" id="search-results">
+        <div class="empty-state">
+          <h2>Sök bland hämtad data</h2>
+          <p>Söker i lokalt cachad data från Breakit</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const DATA_BASE = "data";
+      const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 min auto-refresh
+
+      let ALL_EVENTS = [];
+      let eventKeys = new Set();
+      let activeFilter = "all";
+      let breakitPRs = [];
+      let breakitArticles = [];
+      let currentTab = "impactloop";
+
+      const TYPE_CONFIG = {
+        company_accounts: {
+          icon: "\ud83d\udcca",
+          label: "Bokslut",
+          iconClass: "icon-accounts",
+          badgeClass: "badge-accounts",
+        },
+        company_group_accounts: {
+          icon: "\ud83d\udcca",
+          label: "Koncernbok",
+          iconClass: "icon-accounts",
+          badgeClass: "badge-accounts",
+        },
+        company_director: {
+          icon: "\ud83d\udc64",
+          label: "Styrelse",
+          iconClass: "icon-director",
+          badgeClass: "badge-director",
+        },
+        company_capital: {
+          icon: "\ud83d\udcb0",
+          label: "Kapital",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        company_new_share_issue: {
+          icon: "\ud83d\udcb0",
+          label: "Nyemission",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        capital: {
+          icon: "\ud83d\udcb0",
+          label: "Kapital",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
+        company_bankruptcy: {
+          icon: "\u26a0\ufe0f",
+          label: "Konkurs",
+          iconClass: "icon-bankruptcy",
+          badgeClass: "badge-bankruptcy",
+        },
+        bankruptcy: {
+          icon: "\u26a0\ufe0f",
+          label: "Konkurs",
+          iconClass: "icon-bankruptcy",
+          badgeClass: "badge-bankruptcy",
+        },
+        unknown: {
+          icon: "\ud83d\udccb",
+          label: "\u00d6vrigt",
+          iconClass: "icon-unknown",
+          badgeClass: "badge-unknown",
+        },
+      };
+
+      // --- Tab switching ---
+      function switchTab(tab) {
+        currentTab = tab;
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("tab-" + tab).classList.add("active");
+        document.getElementById("panel-" + tab).classList.add("active");
+
+        if (tab === "breakit" && breakitPRs.length === 0) loadBreakitPR();
+        if (tab === "articles" && breakitArticles.length === 0) loadArticles();
+      }
+
+      // --- Status ---
+      function setStatus(msg, cls) {
+        const el = document.getElementById("status");
+        el.textContent = msg;
+        el.className = "status-bar " + (cls || "");
+      }
+
+      function updateConnectionStatus(ok) {
+        const dot = document.getElementById("dotIndicator");
+        const label = document.getElementById("connectionLabel");
+        if (ok) {
+          dot.style.background = "#4ade80";
+          label.textContent = "Data laddad";
+          label.style.color = "#4ade80";
+        } else {
+          dot.style.background = "#f87171";
+          label.textContent = "Kunde inte ladda data";
+          label.style.color = "#f87171";
+        }
+      }
+
+      // --- ImpactLoop ---
+      function classifyEvent(e) {
+        if (e.event_type) return e.event_type;
+        if (/kapital/i.test(e.text)) return "capital";
+        if (/konkurs/i.test(e.text)) return "bankruptcy";
+        return "unknown";
+      }
+      function highlightNumbers(text) {
+        return text
+          .replace(
+            /f\u00f6rb\u00e4ttrats/g,
+            '<span class="positive">f\u00f6rb\u00e4ttrats</span>',
+          )
+          .replace(/\u00f6kat/g, '<span class="positive">\u00f6kat</span>')
+          .replace(
+            /f\u00f6rs\u00e4mrats/g,
+            '<span class="negative">f\u00f6rs\u00e4mrats</span>',
+          )
+          .replace(/minskat/g, '<span class="negative">minskat</span>')
+          .replace(/Konkurs/g, '<span class="negative">Konkurs</span>');
+      }
+      function formatOrgNr(nr) {
+        if (!nr || nr.length !== 10) return nr || "\u2014";
+        return nr.slice(0, 6) + "-" + nr.slice(6);
+      }
+      function eventKey(e) {
+        return `${e.org_number}_${e.date}_${e.event_type}_${e.company}`;
+      }
+
+      function mergeEvents(events) {
+        for (const e of events) {
+          const key = eventKey(e);
+          if (!eventKeys.has(key)) {
+            ALL_EVENTS.push(e);
+            eventKeys.add(key);
+          }
+        }
+        ALL_EVENTS.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+        document.getElementById("eventCount").textContent = ALL_EVENTS.length;
+        document.getElementById("tab-badge-il").textContent = ALL_EVENTS.length;
+      }
+
+      async function loadEvents() {
+        try {
+          const resp = await fetch(DATA_BASE + "/events.json");
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          const events = await resp.json();
+          ALL_EVENTS = [];
+          eventKeys = new Set();
+          mergeEvents(events);
+          setStatus(`${ALL_EVENTS.length} h\u00e4ndelser laddade.`, "success");
+          renderStats();
+          renderFilters();
+          renderFeed();
+          updateConnectionStatus(true);
+        } catch (err) {
+          setStatus("Kunde inte ladda h\u00e4ndelser: " + err.message, "error");
+          updateConnectionStatus(false);
+        }
+      }
+
+      async function loadStatus() {
+        try {
+          const resp = await fetch(DATA_BASE + "/status.json");
+          if (!resp.ok) return;
+          const status = await resp.json();
+          if (status.last_fetch) {
+            const d = new Date(status.last_fetch);
+            document.getElementById("lastFetchTime").textContent =
+              d.toLocaleString("sv-SE");
+          }
+        } catch (_) {}
+      }
+
+      async function loadAllData() {
+        const btn = document.getElementById("fetchBtn");
+        btn.disabled = true;
+        btn.textContent = "Laddar...";
+        setStatus("Laddar data...", "loading");
+        await Promise.all([
+          loadEvents(),
+          loadBreakitPR(),
+          loadArticles(),
+          loadStatus(),
+        ]);
+        btn.disabled = false;
+        btn.textContent = "Uppdatera";
+      }
+
+      function renderStats() {
+        const accounts = ALL_EVENTS.filter((e) =>
+          classifyEvent(e).includes("accounts"),
+        ).length;
+        const directors = ALL_EVENTS.filter(
+          (e) => classifyEvent(e) === "company_director",
+        ).length;
+        const capitals = ALL_EVENTS.filter((e) => {
+          const c = classifyEvent(e);
+          return (
+            c === "capital" ||
+            c === "company_capital" ||
+            c === "company_new_share_issue"
+          );
+        }).length;
+        const bankruptcies = ALL_EVENTS.filter((e) => {
+          const c = classifyEvent(e);
+          return c === "bankruptcy" || c === "company_bankruptcy";
+        }).length;
+        const uniqueCompanies = new Set(ALL_EVENTS.map((e) => e.org_number))
+          .size;
+        document.getElementById("stats").innerHTML = `
+          <div class="stat"><div class="val">${ALL_EVENTS.length}</div><div class="label">H\u00e4ndelser</div></div>
+          <div class="stat"><div class="val">${uniqueCompanies}</div><div class="label">Bolag</div></div>
+          <div class="stat"><div class="val">${accounts}</div><div class="label">Bokslut</div></div>
+          <div class="stat"><div class="val">${directors}</div><div class="label">Styrelse</div></div>
+          <div class="stat"><div class="val">${capitals}</div><div class="label">Kapital</div></div>
+          <div class="stat"><div class="val">${bankruptcies}</div><div class="label">Konkurser</div></div>`;
+      }
+
+      function renderFilters() {
+        const types = [
+          "all",
+          "company_accounts",
+          "company_director",
+          "capital",
+          "bankruptcy",
+        ];
+        const labels = {
+          all: "Alla",
+          company_accounts: "Bokslut",
+          company_director: "Styrelse",
+          capital: "Kapital",
+          bankruptcy: "Konkurs",
+        };
+        document.getElementById("controls").innerHTML = types
+          .map(
+            (t) =>
+              `<button class="filter-btn ${activeFilter === t ? "active" : ""}" onclick="setFilter('${t}')">${labels[t]}</button>`,
+          )
+          .join("");
+      }
+      function setFilter(type) {
+        activeFilter = type;
+        renderFilters();
+        renderFeed();
+      }
+
+      function renderFeed() {
+        if (!ALL_EVENTS.length) {
+          document.getElementById("feed").innerHTML =
+            '<div class="empty-state"><h2>V\u00e4ntar p\u00e5 data...</h2></div>';
+          return;
+        }
+        const filtered =
+          activeFilter === "all"
+            ? ALL_EVENTS
+            : ALL_EVENTS.filter((e) => {
+                const c = classifyEvent(e);
+                if (activeFilter === "capital")
+                  return (
+                    c === "capital" ||
+                    c === "company_capital" ||
+                    c === "company_new_share_issue"
+                  );
+                if (activeFilter === "bankruptcy")
+                  return c === "bankruptcy" || c === "company_bankruptcy";
+                if (activeFilter === "company_accounts")
+                  return c.includes("accounts");
+                return c === activeFilter;
+              });
+
+        const grouped = {};
+        filtered.forEach((e) => {
+          if (!grouped[e.date]) grouped[e.date] = [];
+          grouped[e.date].push(e);
+        });
+
+        let html = "";
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((e) => {
+              const type = classifyEvent(e);
+              const cfg = TYPE_CONFIG[type] || TYPE_CONFIG.unknown;
+              const cleanText = e.text
+                .replace(e.company, "")
+                .replace(/^\s+/, "")
+                .replace(/\n/g, "<br>");
+              let boardHtml = "";
+              if (e.board_changes && e.board_changes.length > 0) {
+                boardHtml =
+                  '<div style="margin-top:6px;">' +
+                  e.board_changes
+                    .map((bc) => {
+                      const color =
+                        bc.action === "added" ? "#4ade80" : "#f87171";
+                      const symbol = bc.action === "added" ? "+" : "-";
+                      return `<div style="font-size:12px;color:${color};margin-top:2px;"><span style="font-weight:600;">${symbol}</span> ${bc.name} <span style="color:#666;">(${bc.role})</span></div>`;
+                    })
+                    .join("") +
+                  "</div>";
+              }
+              html += `
+            <div class="event">
+              <div class="event-icon ${cfg.iconClass}">${cfg.icon}</div>
+              <div class="event-body">
+                <div class="event-company">${e.company}</div>
+                <div class="event-text">${highlightNumbers(cleanText)}</div>
+                ${boardHtml}
+              </div>
+              <div class="event-meta">
+                <div class="org-nr">${formatOrgNr(e.org_number)}</div>
+                <div><span class="event-type-badge ${cfg.badgeClass}">${cfg.label}</span></div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("feed").innerHTML =
+          html ||
+          '<p style="padding:40px 0;color:#555;">Inga h\u00e4ndelser matchar filtret.</p>';
+      }
+
+      // --- Breakit Pressreleases ---
+      function mergePressreleases(prs) {
+        const existingIds = new Set(breakitPRs.map((p) => p.id));
+        for (const pr of prs) {
+          if (!existingIds.has(pr.id)) {
+            breakitPRs.push(pr);
+            existingIds.add(pr.id);
+          }
+        }
+        breakitPRs.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+        document.getElementById("prCount").textContent = breakitPRs.length;
+        document.getElementById("tab-badge-br").textContent = breakitPRs.length;
+      }
+
+      async function loadBreakitPR() {
+        document.getElementById("breakit-status").textContent =
+          "H\u00e4mtar...";
+        try {
+          const resp = await fetch(DATA_BASE + "/breakit-pressreleases.json");
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          const data = await resp.json();
+          breakitPRs = [];
+          mergePressreleases(data);
+          renderBreakitFeed();
+          document.getElementById("breakit-status").textContent =
+            `${breakitPRs.length} pressreleaser laddade`;
+          document.getElementById("breakit-status").className =
+            "status-bar success";
+        } catch (err) {
+          document.getElementById("breakit-status").textContent =
+            "Fel: " + err.message;
+          document.getElementById("breakit-status").className =
+            "status-bar error";
+        }
+      }
+
+      function stripHtml(html) {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+      }
+
+      function renderBreakitFeed() {
+        if (!breakitPRs.length) {
+          document.getElementById("breakit-feed").innerHTML =
+            '<div class="empty-state"><h2>Inga pressreleaser</h2></div>';
+          return;
+        }
+
+        const sources = {};
+        breakitPRs.forEach((pr) => {
+          const src = pr.sourceName || "Ok\u00e4nd";
+          sources[src] = (sources[src] || 0) + 1;
+        });
+        document.getElementById("breakit-stats").innerHTML = `
+          <div class="stat"><div class="val">${breakitPRs.length}</div><div class="label">Pressreleaser</div></div>
+          <div class="stat"><div class="val">${Object.keys(sources).length}</div><div class="label">K\u00e4llor</div></div>
+          <div class="stat"><div class="val">${
+            breakitPRs.filter((p) => {
+              const d = p.date || "";
+              return d >= new Date().toISOString().slice(0, 10);
+            }).length
+          }</div><div class="label">Idag</div></div>`;
+
+        let html = "";
+        const grouped = {};
+        breakitPRs.forEach((pr) => {
+          const date = (pr.date || "").slice(0, 10);
+          if (!grouped[date]) grouped[date] = [];
+          grouped[date].push(pr);
+        });
+
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((pr) => {
+              const ingress = stripHtml(pr.ingress || "").slice(0, 200);
+              const source = pr.sourceName || "";
+              const prId = pr.id;
+              html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-press">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">${pr.name || "Utan titel"}</div>
+                  <div class="press-date">${(pr.date || "").slice(0, 16).replace("T", " ")}${source ? `<span class="press-source">${source}</span>` : ""}</div>
+                  <div class="press-ingress">${ingress}</div>
+                  <button class="press-toggle" onclick="togglePR(${prId})">Visa mer</button>
+                  <div class="press-body" id="pr-body-${prId}">${pr.body || ""}</div>
+                </div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("breakit-feed").innerHTML = html;
+      }
+
+      function togglePR(id) {
+        const body = document.getElementById("pr-body-" + id);
+        if (body.style.display === "block") {
+          body.style.display = "none";
+          body.previousElementSibling.textContent = "Visa mer";
+        } else {
+          body.style.display = "block";
+          body.previousElementSibling.textContent = "D\u00f6lj";
+        }
+      }
+
+      // --- Breakit Articles ---
+      let articleFilter = "all";
+
+      async function loadArticles() {
+        document.getElementById("articles-status").textContent =
+          "H\u00e4mtar...";
+        try {
+          const resp = await fetch(DATA_BASE + "/breakit-articles.json");
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          const data = await resp.json();
+          breakitArticles = data.filter(
+            (a) => !a.isPremium && (a.body || "").length > 0,
+          );
+          breakitArticles.sort((a, b) =>
+            (b.date || "").localeCompare(a.date || ""),
+          );
+          document.getElementById("tab-badge-art").textContent =
+            breakitArticles.length;
+          document.getElementById("articles-status").textContent =
+            `${breakitArticles.length} fria artiklar med fulltext`;
+          document.getElementById("articles-status").className =
+            "status-bar success";
+          renderArticleStats();
+          renderArticleFilters();
+          renderArticleFeed();
+        } catch (err) {
+          document.getElementById("articles-status").textContent =
+            "Fel: " + err.message;
+          document.getElementById("articles-status").className =
+            "status-bar error";
+        }
+      }
+
+      function renderArticleStats() {
+        const companies = new Set();
+        const tags = {};
+        breakitArticles.forEach((a) => {
+          (a.companies || []).forEach((c) => companies.add(c.name));
+          (a.subject_tags || []).forEach((t) => {
+            tags[t.name] = (tags[t.name] || 0) + 1;
+          });
+        });
+        const topTags = Object.entries(tags)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6);
+        document.getElementById("articles-stats").innerHTML = `
+          <div class="stat"><div class="val">${breakitArticles.length}</div><div class="label">Fria artiklar</div></div>
+          <div class="stat"><div class="val">${companies.size}</div><div class="label">N\u00e4mnda bolag</div></div>
+          <div class="stat"><div class="val">${Object.keys(tags).length}</div><div class="label">Taggar</div></div>
+          <div class="stat"><div class="val">${topTags.length > 0 ? topTags[0][0] : "-"}</div><div class="label">Topptagg</div></div>`;
+      }
+
+      function renderArticleFilters() {
+        const tags = {};
+        breakitArticles.forEach((a) => {
+          (a.subject_tags || []).forEach((t) => {
+            tags[t.name] = (tags[t.name] || 0) + 1;
+          });
+        });
+        const topTags = Object.entries(tags)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8);
+        let html = `<button class="filter-btn ${articleFilter === "all" ? "active" : ""}" onclick="setArticleFilter('all')">Alla</button>`;
+        topTags.forEach(([tag]) => {
+          html += `<button class="filter-btn ${articleFilter === tag ? "active" : ""}" onclick="setArticleFilter('${tag.replace(/'/g, "\\'")}')">${tag}</button>`;
+        });
+        document.getElementById("articles-filter").innerHTML = html;
+      }
+
+      function setArticleFilter(tag) {
+        articleFilter = tag;
+        renderArticleFilters();
+        renderArticleFeed();
+      }
+
+      function renderArticleFeed() {
+        let filtered = breakitArticles;
+        if (articleFilter !== "all") {
+          filtered = breakitArticles.filter((a) =>
+            (a.subject_tags || []).some((t) => t.name === articleFilter),
+          );
+        }
+        if (!filtered.length) {
+          document.getElementById("articles-feed").innerHTML =
+            '<div class="empty-state"><h2>Inga artiklar</h2></div>';
+          return;
+        }
+
+        const grouped = {};
+        filtered.forEach((a) => {
+          const date = (a.date || "").slice(0, 10);
+          if (!grouped[date]) grouped[date] = [];
+          grouped[date].push(a);
+        });
+
+        let html = "";
+        Object.keys(grouped)
+          .sort()
+          .reverse()
+          .forEach((date) => {
+            const d = new Date(date + "T00:00:00");
+            const dayName = d.toLocaleDateString("sv-SE", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            });
+            html += `<div class="date-group"><div class="date-label">${dayName}</div>`;
+            grouped[date].forEach((a) => {
+              const tags = (a.subject_tags || [])
+                .map(
+                  (t) =>
+                    `<span class="event-type-badge badge-article">${t.name}</span>`,
+                )
+                .join(" ");
+              const companies = (a.companies || [])
+                .map((c) => c.name)
+                .join(", ");
+              const persons = (a.persons || []).map((p) => p.name).join(", ");
+              const ingress = stripHtml(a.ingress || "").slice(0, 200);
+              const artId = a.id;
+              const slug = a.slug || "";
+
+              html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-article">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">
+                    <a href="https://www.breakit.se/artikel/${artId}/${slug}" target="_blank">${a.name || "?"}</a>
+                  </div>
+                  <div class="press-date">
+                    ${(a.date || "").slice(0, 16).replace("T", " ")}
+                    ${a.user ? `<span class="press-source">${a.user.fullName || ""}</span>` : ""}
+                  </div>
+                  ${companies ? `<div style="font-size:11px;color:#60a5fa;margin-top:3px;">Bolag: ${companies}</div>` : ""}
+                  ${persons ? `<div style="font-size:11px;color:#a78bfa;margin-top:2px;">Personer: ${persons}</div>` : ""}
+                  <div style="margin-top:4px;">${tags}</div>
+                  ${ingress ? `<div class="press-ingress">${ingress}</div>` : ""}
+                  <button class="press-toggle" onclick="toggleArt(${artId})">L\u00e4s artikeln</button>
+                  <div class="press-body" id="art-body-${artId}">${a.body || ""}</div>
+                </div>
+              </div>
+            </div>`;
+            });
+            html += "</div>";
+          });
+        document.getElementById("articles-feed").innerHTML = html;
+      }
+
+      function toggleArt(id) {
+        const body = document.getElementById("art-body-" + id);
+        if (body.style.display === "block") {
+          body.style.display = "none";
+          body.previousElementSibling.textContent = "L\u00e4s artikeln";
+        } else {
+          body.style.display = "block";
+          body.previousElementSibling.textContent = "D\u00f6lj";
+        }
+      }
+
+      // --- Local search ---
+      function doSearch() {
+        const q = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        if (!q) return;
+        const container = document.getElementById("search-results");
+
+        // Search in all loaded data
+        const results = [];
+
+        ALL_EVENTS.forEach((e) => {
+          if (
+            (e.company || "").toLowerCase().includes(q) ||
+            (e.text || "").toLowerCase().includes(q)
+          ) {
+            results.push({ type: "event", data: e });
+          }
+        });
+        breakitArticles.forEach((a) => {
+          if (
+            (a.name || "").toLowerCase().includes(q) ||
+            (a.ingress || "").toLowerCase().includes(q) ||
+            (a.body || "").toLowerCase().includes(q)
+          ) {
+            results.push({ type: "article", data: a });
+          }
+        });
+        breakitPRs.forEach((pr) => {
+          if (
+            (pr.name || "").toLowerCase().includes(q) ||
+            (pr.body || "").toLowerCase().includes(q)
+          ) {
+            results.push({ type: "pressrelease", data: pr });
+          }
+        });
+
+        if (!results.length) {
+          container.innerHTML =
+            '<div class="empty-state"><h2>Inga resultat</h2></div>';
+          return;
+        }
+
+        let html = `<div style="padding:8px 0;font-size:12px;color:#666;">${results.length} resultat f\u00f6r "${q}"</div>`;
+        results.forEach((item) => {
+          if (item.type === "event") {
+            const e = item.data;
+            const cfg = TYPE_CONFIG[classifyEvent(e)] || TYPE_CONFIG.unknown;
+            html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon ${cfg.iconClass}">${cfg.icon}</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">${e.company}</div>
+                  <div class="press-date">${e.date} <span class="event-type-badge ${cfg.badgeClass}">${cfg.label}</span></div>
+                  <div class="press-ingress">${e.text}</div>
+                </div>
+              </div>
+            </div>`;
+          } else if (item.type === "article") {
+            const a = item.data;
+            html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-article">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title"><a href="https://www.breakit.se/artikel/${a.id}/${a.slug || ""}" target="_blank">${a.name || "?"}</a></div>
+                  <div class="press-date">${(a.date || "").slice(0, 16).replace("T", " ")} <span class="event-type-badge badge-article">Artikel</span></div>
+                  <div class="press-ingress">${stripHtml(a.ingress || "").slice(0, 200)}</div>
+                </div>
+              </div>
+            </div>`;
+          } else {
+            const pr = item.data;
+            html += `
+            <div class="press-item">
+              <div style="display:flex;align-items:start;gap:12px;">
+                <div class="event-icon icon-press">\ud83d\udcf0</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="press-title">${pr.name || "Utan titel"}</div>
+                  <div class="press-date">${(pr.date || "").slice(0, 16).replace("T", " ")} <span class="event-type-badge badge-press">Press</span></div>
+                  <div class="press-ingress">${stripHtml(pr.ingress || "").slice(0, 200)}</div>
+                </div>
+              </div>
+            </div>`;
+          }
+        });
+        container.innerHTML = html;
+      }
+
+      // --- Start ---
+      (async function start() {
+        setStatus("Laddar data...", "loading");
+        await loadAllData();
+
+        // Auto-refresh every 5 minutes
+        setInterval(async () => {
+          await loadAllData();
+        }, REFRESH_INTERVAL);
+      })();
+    </script>
+  </body>
+</html>
