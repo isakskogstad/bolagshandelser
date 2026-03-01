@@ -119,12 +119,7 @@ async def fetch_impactloop_events(max_messages=500, timeout=30):
 
     # Classify events with null event_type based on text content
     for e in events:
-        if e.get("event_type") is None:
-            text = e.get("text", "")
-            if "har tagit in" in text and "kapital" in text:
-                e["event_type"] = "share_issue"
-            elif "Konkurs" in text:
-                e["event_type"] = "bankruptcy"
+        classify_event_type(e)
 
     return events
 
@@ -189,6 +184,17 @@ def fetch_breakit():
     return pressreleases, articles
 
 
+def classify_event_type(event):
+    """Classify event_type based on text content if missing."""
+    if event.get("event_type") is not None:
+        return
+    text = event.get("text", "")
+    if "har tagit in" in text and "kapital" in text:
+        event["event_type"] = "share_issue"
+    elif "Konkurs" in text:
+        event["event_type"] = "bankruptcy"
+
+
 def merge_with_existing(new_data, filepath, key_func):
     """Merge new data with existing JSON file, avoiding duplicates."""
     existing = []
@@ -198,6 +204,10 @@ def merge_with_existing(new_data, filepath, key_func):
                 existing = json.load(f)
         except (json.JSONDecodeError, IOError):
             existing = []
+
+    # Fix event_type on existing data too
+    for item in existing:
+        classify_event_type(item)
 
     existing_keys = {key_func(item) for item in existing}
     for item in new_data:
