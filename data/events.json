@@ -163,6 +163,24 @@
     "event_type": "company_accounts"
   },
   {
+    "date": "2026-02-27",
+    "company": "Nothing F!SHY AB",
+    "text": "Nothing F!SHY AB har tagit in 1,4 milj kr i kapital.",
+    "raw_markdown": "**Nothing F!SHY AB** har tagit in 1,4 milj kr i kapital.",
+    "eivora_id": "730bb778-824f-4842-84e3-a2d54f45ab8b",
+    "org_number": "5593041899",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-27",
+    "company": "Prorector AB",
+    "text": "Prorector AB  \n Konkurs",
+    "raw_markdown": "**Prorector AB**  \n📌 *Konkurs*",
+    "eivora_id": "c82c55aa-f111-42df-8880-754f1463f637",
+    "org_number": "5569670150",
+    "event_type": "bankruptcy"
+  },
+  {
     "date": "2026-02-26",
     "company": "Chromafora AB",
     "text": "Chromafora AB har tagit in 41,8 milj kr i kapital.",
@@ -224,6 +242,24 @@
     "event_type": null
   },
   {
+    "date": "2026-02-26",
+    "company": "Chromafora AB",
+    "text": "Chromafora AB har tagit in 41,8 milj kr i kapital.",
+    "raw_markdown": "**Chromafora AB** har tagit in 41,8 milj kr i kapital.",
+    "eivora_id": "297db97d-f9d8-4c74-94fc-d0dffdee1d47",
+    "org_number": "5568032568",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-26",
+    "company": "PlayWellMinds AB",
+    "text": "PlayWellMinds AB har tagit in 8,1 milj kr i kapital.",
+    "raw_markdown": "**PlayWellMinds AB** har tagit in 8,1 milj kr i kapital.",
+    "eivora_id": "2063c2ad-28f0-4082-abe7-15978d683390",
+    "org_number": "5594665530",
+    "event_type": "share_issue"
+  },
+  {
     "date": "2026-02-25",
     "company": "BK Tech Energy AB",
     "text": "BK Tech Energy AB har minskat sin nettoomsättning med 6 %, från 228,3 milj kr till 214,3 milj kr. Resultatet har försämrats med 47 %, från 3,0 milj kr till 1,6 milj kr.",
@@ -258,5 +294,14 @@
     "eivora_id": "2b12364a-0020-4ad7-ba7d-a50daad3af86",
     "org_number": "5590381470",
     "event_type": "company_group_accounts"
+  },
+  {
+    "date": "2026-02-25",
+    "company": "Holyvolt AB",
+    "text": "Holyvolt AB har tagit in 81,2 milj kr i kapital.",
+    "raw_markdown": "**Holyvolt AB** har tagit in 81,2 milj kr i kapital.",
+    "eivora_id": "27a3b13f-64fa-4cd8-9b56-0ca608316584",
+    "org_number": "5593997462",
+    "event_type": "share_issue"
   }
 ]
