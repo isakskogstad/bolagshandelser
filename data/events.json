@@ -142,7 +142,7 @@
     "raw_markdown": "**Nothing F!SHY AB** har tagit in 1,4 milj kr i kapital.",
     "eivora_id": "730bb778-824f-4842-84e3-a2d54f45ab8b",
     "org_number": "5593041899",
-    "event_type": null
+    "event_type": "share_issue"
   },
   {
     "date": "2026-02-27",
@@ -151,7 +151,7 @@
     "raw_markdown": "**Prorector AB**  \n📌 *Konkurs*",
     "eivora_id": "c82c55aa-f111-42df-8880-754f1463f637",
     "org_number": "5569670150",
-    "event_type": null
+    "event_type": "bankruptcy"
   },
   {
     "date": "2026-02-27",
@@ -187,7 +187,7 @@
     "raw_markdown": "**Chromafora AB** har tagit in 41,8 milj kr i kapital.",
     "eivora_id": "297db97d-f9d8-4c74-94fc-d0dffdee1d47",
     "org_number": "5568032568",
-    "event_type": null
+    "event_type": "share_issue"
   },
   {
     "date": "2026-02-26",
@@ -239,7 +239,7 @@
     "raw_markdown": "**PlayWellMinds AB** har tagit in 8,1 milj kr i kapital.",
     "eivora_id": "2063c2ad-28f0-4082-abe7-15978d683390",
     "org_number": "5594665530",
-    "event_type": null
+    "event_type": "share_issue"
   },
   {
     "date": "2026-02-26",
@@ -284,7 +284,7 @@
     "raw_markdown": "**Holyvolt AB** har tagit in 81,2 milj kr i kapital.",
     "eivora_id": "27a3b13f-64fa-4cd8-9b56-0ca608316584",
     "org_number": "5593997462",
-    "event_type": null
+    "event_type": "share_issue"
   },
   {
     "date": "2026-02-25",
