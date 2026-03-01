@@ -661,6 +661,12 @@
           iconClass: "icon-capital",
           badgeClass: "badge-capital",
         },
+        share_issue: {
+          icon: "\ud83d\udcb0",
+          label: "Nyemission",
+          iconClass: "icon-capital",
+          badgeClass: "badge-capital",
+        },
         capital: {
           icon: "\ud83d\udcb0",
           label: "Kapital",
@@ -730,10 +736,7 @@
 
       // --- ImpactLoop ---
       function classifyEvent(e) {
-        if (e.event_type) return e.event_type;
-        if (/kapital/i.test(e.text)) return "capital";
-        if (/konkurs/i.test(e.text)) return "bankruptcy";
-        return "unknown";
+        return e.event_type || "unknown";
       }
       function highlightNumbers(text) {
         return text
@@ -928,7 +931,8 @@
                   return (
                     c === "capital" ||
                     c === "company_capital" ||
-                    c === "company_new_share_issue"
+                    c === "company_new_share_issue" ||
+                    c === "share_issue"
                   );
                 if (activeFilter === "bankruptcy")
                   return c === "bankruptcy" || c === "company_bankruptcy";

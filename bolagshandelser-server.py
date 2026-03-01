@@ -107,13 +107,23 @@ def parse_events_from_messages(ws_messages):
                 org_match = re.search(r"skriv_(\d{10})", btn_id)
                 type_match = re.search(
                     r"(company_accounts|company_director|company_group_accounts|"
-                    r"company_bankruptcy|company_capital|company_new_share_issue)",
+                    r"company_bankruptcy|company_capital|company_new_share_issue|"
+                    r"share_issue|bankruptcy)",
                     btn_id,
                 )
                 current_event["org_number"] = org_match.group(1) if org_match else None
                 current_event["event_type"] = type_match.group(1) if type_match else None
                 events.append(current_event)
                 current_event = {}
+
+    # Classify events with null event_type based on text content
+    for e in events:
+        if e.get("event_type") is None:
+            text = e.get("text", "")
+            if "har tagit in" in text and "kapital" in text:
+                e["event_type"] = "share_issue"
+            elif "Konkurs" in text:
+                e["event_type"] = "bankruptcy"
 
     return events
 

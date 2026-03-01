@@ -111,12 +111,21 @@ async def fetch_events(max_messages=500, timeout=30):
                     # Extract org number and event type from button ID
                     # Format: ...-skriv_5569684250_2026-02-27_company_accounts_0
                     org_match = re.search(r"skriv_(\d{10})", btn_id)
-                    type_match = re.search(r"(company_accounts|company_director|company_group_accounts|company_bankruptcy|company_capital|company_new_share_issue)", btn_id)
+                    type_match = re.search(r"(company_accounts|company_director|company_group_accounts|company_bankruptcy|company_capital|company_new_share_issue|share_issue|bankruptcy)", btn_id)
 
                     current_event["org_number"] = org_match.group(1) if org_match else None
                     current_event["event_type"] = type_match.group(1) if type_match else None
                     events.append(current_event)
                     current_event = {}
+
+        # Classify events with null event_type based on text content
+        for e in events:
+            if e.get("event_type") is None:
+                text = e.get("text", "")
+                if "har tagit in" in text and "kapital" in text:
+                    e["event_type"] = "share_issue"
+                elif "Konkurs" in text:
+                    e["event_type"] = "bankruptcy"
 
         return events
 
