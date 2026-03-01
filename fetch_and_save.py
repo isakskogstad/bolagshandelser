@@ -237,11 +237,12 @@ def main():
         events = asyncio.run(fetch_impactloop_events())
         print(f"  {len(events)} händelser hämtade")
 
-        # Merge with existing
+        # Merge with existing (key without event_type to avoid duplicates
+        # from before the classification fix)
         events_file = os.path.join(DATA_DIR, "events.json")
         all_events = merge_with_existing(
             events, events_file,
-            lambda e: f"{e.get('org_number')}_{e.get('date')}_{e.get('event_type')}_{e.get('company')}"
+            lambda e: f"{e.get('org_number')}_{e.get('date')}_{e.get('company')}"
         )
         all_events.sort(key=lambda e: e.get("date", ""), reverse=True)
 
