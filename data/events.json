@@ -303,5 +303,138 @@
     "eivora_id": "27a3b13f-64fa-4cd8-9b56-0ca608316584",
     "org_number": "5593997462",
     "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "CLING Systems AB",
+    "text": "CLING Systems AB har minskat sin nettoomsättning med 59 %, från 10,1 milj kr till 4,1 milj kr. Resultatet har försämrats med 110 %, från -8,6 milj kr till -18,1 milj kr.",
+    "raw_markdown": "**CLING Systems AB** har minskat sin nettoomsättning med 59 %, från 10,1 milj kr till 4,1 milj kr. Resultatet har försämrats med 110 %, från -8,6 milj kr till -18,1 milj kr.",
+    "eivora_id": "8f503253-8404-464a-af94-68672e5e4d1f",
+    "org_number": "5592548332",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Enerpoly AB",
+    "text": "Enerpoly AB  \n Konkurs",
+    "raw_markdown": "**Enerpoly AB**  \n📌 *Konkurs*",
+    "eivora_id": "027e9d33-de9a-4f0a-8bf1-41af8787df8d",
+    "org_number": "5591814388",
+    "event_type": "bankruptcy"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Repli5 AB",
+    "text": "Repli5 AB har tagit in 5,6 milj kr i kapital.",
+    "raw_markdown": "**Repli5 AB** har tagit in 5,6 milj kr i kapital.",
+    "eivora_id": "8e0393f1-580e-4dc1-baac-855bbf60a57a",
+    "org_number": "5591225734",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Sparly AB",
+    "text": "Sparly AB Resultatet har försämrats med 472 %, från -224 000 kr till -1,3 milj kr.",
+    "raw_markdown": "**Sparly AB** Resultatet har försämrats med 472 %, från -224 000 kr till -1,3 milj kr.",
+    "eivora_id": "7c05f131-e363-4a0b-823d-18bb6706c634",
+    "org_number": "5592497589",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Plankton AB",
+    "text": "Plankton AB har förändringar i styrelsen:  \n➕ Vesa Gredeson (Särskild delgivningsmottagare)",
+    "raw_markdown": "**Plankton AB** har förändringar i styrelsen:  \n➕ Vesa Gredeson (Särskild delgivningsmottagare)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Vesa Gredeson",
+        "role": "Särskild delgivningsmottagare"
+      }
+    ],
+    "eivora_id": "561cdd30-55fe-4a56-b614-63694d940066",
+    "org_number": "5592077555",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Stockholm Water Technology AB",
+    "text": "Stockholm Water Technology AB har tagit in 4,6 milj kr i kapital.",
+    "raw_markdown": "**Stockholm Water Technology AB** har tagit in 4,6 milj kr i kapital.",
+    "eivora_id": "75d67f8f-943a-4a4a-b7e6-94553ba5d303",
+    "org_number": "5591471684",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "C-Green AB",
+    "text": "C-Green AB har tagit in 5,3 milj kr i kapital.",
+    "raw_markdown": "**C-Green AB** har tagit in 5,3 milj kr i kapital.",
+    "eivora_id": "3841259d-ec99-4dd6-be27-ae228d77b666",
+    "org_number": "5590016001",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "Scandinavian Data Centers AB",
+    "text": "Scandinavian Data Centers AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Scandinavian Data Centers AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "8c1fdb32-2bc2-4e56-879a-9e2bfc79e809",
+    "org_number": "5593324295",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-24",
+    "company": "AXsensor AB (publ)",
+    "text": "AXsensor AB (publ) har tagit in 20,8 milj kr i kapital.",
+    "raw_markdown": "**AXsensor AB (publ)** har tagit in 20,8 milj kr i kapital.",
+    "eivora_id": "b922e8b9-bf90-455c-a666-56cb67b93959",
+    "org_number": "5566280979",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-23",
+    "company": "Infometric Aktiebolag",
+    "text": "Infometric Aktiebolag har ökat sin nettoomsättning med 13 %, från 121,7 milj kr till 137,5 milj kr. Resultatet har förbättrats med 3 %, från 21,3 milj kr till 22,0 milj kr.",
+    "raw_markdown": "**Infometric Aktiebolag** har ökat sin nettoomsättning med 13 %, från 121,7 milj kr till 137,5 milj kr. Resultatet har förbättrats med 3 %, från 21,3 milj kr till 22,0 milj kr.",
+    "eivora_id": "0f8fff43-917b-43d9-a881-7a8a34fd5b6c",
+    "org_number": "5565094660",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-02-23",
+    "company": "SweGaN AB",
+    "text": "SweGaN AB har tagit in 0,3 milj kr i kapital.",
+    "raw_markdown": "**SweGaN AB** har tagit in 0,3 milj kr i kapital.",
+    "eivora_id": "70267c65-8042-4155-9cf8-2cbca0b9781c",
+    "org_number": "5569651937",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-23",
+    "company": "Lignin Industries AB",
+    "text": "Lignin Industries AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Lignin Industries AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "15fcdbfe-296c-4bf6-b190-0c7700da3dd6",
+    "org_number": "5591036743",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-02-23",
+    "company": "Reliefed AB",
+    "text": "Reliefed AB har tagit in 0,1 milj kr i kapital.",
+    "raw_markdown": "**Reliefed AB** har tagit in 0,1 milj kr i kapital.",
+    "eivora_id": "0e236270-feee-4465-9a13-fe4e714cbaaa",
+    "org_number": "5566692694",
+    "event_type": "share_issue"
+  },
+  {
+    "date": "2026-02-23",
+    "company": "Exeger Operations AB",
+    "text": "Exeger Operations AB har tagit in 181,2 milj kr i kapital.",
+    "raw_markdown": "**Exeger Operations AB** har tagit in 181,2 milj kr i kapital.",
+    "eivora_id": "e556d428-e106-4611-bfae-c67d16474689",
+    "org_number": "5590736806",
+    "event_type": "share_issue"
   }
 ]
