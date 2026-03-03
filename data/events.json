@@ -45,6 +45,24 @@
     "event_type": "company_director"
   },
   {
+    "date": "2026-03-02",
+    "company": "Bikelease Sweden AB",
+    "text": "Bikelease Sweden AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**Bikelease Sweden AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "e24c7226-3e54-4674-b893-fb4750f64997",
+    "org_number": "5591423867",
+    "event_type": "company_director"
+  },
+  {
+    "date": "2026-03-02",
+    "company": "SweGreen AB",
+    "text": "SweGreen AB  \n Styrelseändring:  \nNågon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer.",
+    "raw_markdown": "**SweGreen AB**  \n📌 *Styrelseändring:*  \n_Någon från styrelsen har troligtvis lämnat, se Eivora om du vill veta mer._",
+    "eivora_id": "b01aceb8-ce93-42ee-89e3-b41a0749280c",
+    "org_number": "5591945109",
+    "event_type": "company_director"
+  },
+  {
     "date": "2026-02-27",
     "company": "Biorecro AB",
     "text": "Biorecro AB har minskat sin nettoomsättning med 7 %, från 3,2 milj kr till 2,9 milj kr. Resultatet har försämrats med 59 %, från 83 000 kr till 34 000 kr.",
