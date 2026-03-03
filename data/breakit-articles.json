@@ -1,5 +1,136 @@
 [
   {
+    "id": 45618,
+    "name": "Omsättningen rusar för Sitoo – Jens Levin sågar snacket om SaaS-döden",
+    "name_puff": "Omsättningen rusar – vd:n sågar snacket om SaaS-döden: “Överlägset bästa modellen”",
+    "slug": "omsattningen-rusar-for-sitoo-jens-levin-sagar-snacket-om-saas-doden",
+    "date": "2026-03-03 11:01:00",
+    "updated": "2026-03-03 11:07:00",
+    "userId": 118,
+    "body": "",
+    "ingress": "“Jag är trött på allt snack om SaaS-döden. Det vi ser är inte ett slut, utan en fundamental transformation och födelsen av SaaS 2.0. Genom AI öppnas dörrarna till helt nya möjligheter”, säger Jens Levin, vd på Sitoo.\r\n\r\nNu växlar kassasystem-bolaget upp rejält. Under 2025 rusade omsättningen med 40 procent och bolaget lyckades vända förlust till vinst.",
+    "ingress_puff": null,
+    "image": "5177716c5deedf2a536f412257265400.webp",
+    "imageWidth": 980,
+    "imageHeight": 500,
+    "imageTop": null,
+    "imageLeft": null,
+    "status": 3,
+    "photoName": "Jens Levin. Foto: Press",
+    "photoAltText": null,
+    "imageText": "FÖRST PÅ BREAKIT",
+    "sponsored": 0,
+    "sponsoredText": null,
+    "sponsorId": null,
+    "isGuide": 0,
+    "videoId": null,
+    "isPremium": true,
+    "political": 0,
+    "opinion": "",
+    "showTip": 0,
+    "imageTextType": 2,
+    "puffPrefix": null,
+    "showPremiumPreview": 0,
+    "fullWidth": 0,
+    "isOpinion": 0,
+    "opinionAuthor": null,
+    "sesamyEnabled": 0,
+    "sesamyPrice": null,
+    "imagePath": "https://cdn.breakit.se/assets/article/5177716c5deedf2a536f412257265400.webp",
+    "thumbnail": "https://cdn.breakit.se/assets/article/5177716c5deedf2a536f412257265400@thumb.webp",
+    "formattedTrackers": [],
+    "factboxes": [],
+    "story_tags": [
+      {
+        "id": 1783,
+        "name": "Är SaaS dött?",
+        "slug": "ar-saas-dott?",
+        "description": null,
+        "shortDescription": null,
+        "type": "storyTag"
+      }
+    ],
+    "subject_tags": [
+      {
+        "id": 307,
+        "name": "SaaS",
+        "slug": "saas",
+        "description": null,
+        "shortDescription": null,
+        "type": "subjectTag"
+      }
+    ],
+    "companies": [
+      {
+        "id": 1841,
+        "logo": "default.png",
+        "name": "Sitoo",
+        "placeid": null,
+        "description": null,
+        "url": null,
+        "company_type": 1,
+        "date": "0000-00-00",
+        "slug": "sitoo",
+        "shortDescription": null,
+        "image": null,
+        "imageWidth": null,
+        "imageHeight": null,
+        "imageLeft": null,
+        "imageTop": null,
+        "facts": null,
+        "type": "company",
+        "imagePath": null
+      }
+    ],
+    "persons": [
+      {
+        "id": 3686,
+        "name": "Jens Levin",
+        "description": null,
+        "logo": null,
+        "slug": "jens-levin",
+        "shortDescription": null,
+        "image": null,
+        "imageWidth": null,
+        "imageHeight": null,
+        "imageLeft": null,
+        "imageTop": null,
+        "facts": null,
+        "url": null,
+        "type": "person",
+        "imagePath": null
+      }
+    ],
+    "user": {
+      "id": 118,
+      "email": "emil@breakit.se",
+      "firstname": "Emil",
+      "lastname": "Widhagen",
+      "image": "c7632f44f5bb17488a2428a73504c5f2.webp",
+      "columnistImage": null,
+      "socialtag": null,
+      "socialtag_link": null,
+      "title": "Reporter",
+      "description": null,
+      "chronicletitle": null,
+      "chronicletitle_slug": "emil-widhagen",
+      "columnist": 0,
+      "slug": "emil-widhagen",
+      "isAdmin": 0,
+      "imagePath": "https://cdn.breakit.se/assets/user/c7632f44f5bb17488a2428a73504c5f2.webp",
+      "fullName": "Emil Widhagen"
+    },
+    "sponsor": null,
+    "resource_locks": [
+      {
+        "resource_id": 45618,
+        "resource_type": "article_core",
+        "type": "premium"
+      }
+    ],
+    "_source": "front-page"
+  },
+  {
     "id": 45626,
     "name": "Nu krokar Swish arm med Paypal – för att nå miljontals e-handlare utomlands",
     "name_puff": "Svenska appen krokar arm med Elon Musks baby – för att nå miljontals e-handlare utomlands",

@@ -72,6 +72,15 @@
     "event_type": "company_accounts"
   },
   {
+    "date": "2026-03-03",
+    "company": "ENAIRON AB",
+    "text": "ENAIRON AB Resultatet har försämrats med 124 %, från -1,9 milj kr till -4,2 milj kr.",
+    "raw_markdown": "**ENAIRON AB** Resultatet har försämrats med 124 %, från -1,9 milj kr till -4,2 milj kr.",
+    "eivora_id": "2aa4147b-5a09-492f-af81-8120aa71761a",
+    "org_number": "5591169585",
+    "event_type": "company_accounts"
+  },
+  {
     "date": "2026-03-02",
     "company": "Mylla Matmarknad AB",
     "text": "Mylla Matmarknad AB har tagit in 8,8 milj kr i kapital.",
