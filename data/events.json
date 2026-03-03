@@ -36,6 +36,42 @@
     "event_type": "company_accounts"
   },
   {
+    "date": "2026-03-03",
+    "company": "LocalLife Sweden AB",
+    "text": "LocalLife Sweden AB har ökat sin nettoomsättning med 28 %, från 5,4 milj kr till 7,0 milj kr. Resultatet har vänt från en förlust på -24 000 kr till en vinst på 73 000 kr.",
+    "raw_markdown": "**LocalLife Sweden AB** har ökat sin nettoomsättning med 28 %, från 5,4 milj kr till 7,0 milj kr. Resultatet har vänt från en förlust på -24 000 kr till en vinst på 73 000 kr.",
+    "eivora_id": "6959593d-7fa5-47b7-a80f-2285ea59ea0d",
+    "org_number": "5569932337",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Make Equal culture and performance AB",
+    "text": "Make Equal culture and performance AB har minskat sin nettoomsättning med 66 %, från 3,2 milj kr till 1,1 milj kr. Resultatet har gått från en vinst på 395 000 kr till en förlust på -52 000 kr.",
+    "raw_markdown": "**Make Equal culture and performance AB** har minskat sin nettoomsättning med 66 %, från 3,2 milj kr till 1,1 milj kr. Resultatet har gått från en vinst på 395 000 kr till en förlust på -52 000 kr.",
+    "eivora_id": "92e03837-74c0-4841-8f36-19a9bddb9b79",
+    "org_number": "5593923195",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Cerve Holding AB",
+    "text": "Cerve Holding AB har ökat sin nettoomsättning med 73 %, från 1,9 milj kr till 3,4 milj kr. Resultatet har förbättrats med 2 %, från -7,5 milj kr till -7,3 milj kr.",
+    "raw_markdown": "**Cerve Holding AB** har ökat sin nettoomsättning med 73 %, från 1,9 milj kr till 3,4 milj kr. Resultatet har förbättrats med 2 %, från -7,5 milj kr till -7,3 milj kr.",
+    "eivora_id": "331a13a1-4fa9-4808-bc94-31db02197e46",
+    "org_number": "5593041410",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Foodfighters AB",
+    "text": "Foodfighters AB har minskat sin nettoomsättning med 16 %, från 1,8 milj kr till 1,5 milj kr. Resultatet har gått från en vinst på 779 000 kr till en förlust på -47 000 kr.",
+    "raw_markdown": "**Foodfighters AB** har minskat sin nettoomsättning med 16 %, från 1,8 milj kr till 1,5 milj kr. Resultatet har gått från en vinst på 779 000 kr till en förlust på -47 000 kr.",
+    "eivora_id": "b14840fa-f690-44bc-ab26-157bf348059e",
+    "org_number": "5591502405",
+    "event_type": "company_accounts"
+  },
+  {
     "date": "2026-03-02",
     "company": "Mylla Matmarknad AB",
     "text": "Mylla Matmarknad AB har tagit in 8,8 milj kr i kapital.",
