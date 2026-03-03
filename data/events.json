@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-03-02",
+    "company": "Mylla Matmarknad AB",
+    "text": "Mylla Matmarknad AB har tagit in 8,8 milj kr i kapital.",
+    "raw_markdown": "**Mylla Matmarknad AB** har tagit in 8,8 milj kr i kapital.",
+    "eivora_id": "0f84d989-d5a0-46d3-abd0-358cf97fdb2f",
+    "org_number": "5591510598",
+    "event_type": "share_issue"
+  },
+  {
     "date": "2026-02-27",
     "company": "Biorecro AB",
     "text": "Biorecro AB har minskat sin nettoomsättning med 7 %, från 3,2 milj kr till 2,9 milj kr. Resultatet har försämrats med 59 %, från 83 000 kr till 34 000 kr.",
