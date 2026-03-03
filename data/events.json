@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-03-03",
+    "company": "HELM Movement AB",
+    "text": "HELM Movement AB har ökat sin nettoomsättning med 780 %, från 1,6 milj kr till 14,2 milj kr. Resultatet har förbättrats med 737 %, från 926 000 kr till 7,7 milj kr.",
+    "raw_markdown": "**HELM Movement AB** har ökat sin nettoomsättning med 780 %, från 1,6 milj kr till 14,2 milj kr. Resultatet har förbättrats med 737 %, från 926 000 kr till 7,7 milj kr.",
+    "eivora_id": "37eec1b9-c46d-41de-9a80-311b7abccce0",
+    "org_number": "5594819590",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Nordic Energy Audit Aktiebolag",
+    "text": "Nordic Energy Audit Aktiebolag har ökat sin nettoomsättning med 54 %, från 2,4 milj kr till 3,6 milj kr. Resultatet har vänt från en förlust på -360 000 kr till en vinst på 707 000 kr.",
+    "raw_markdown": "**Nordic Energy Audit Aktiebolag** har ökat sin nettoomsättning med 54 %, från 2,4 milj kr till 3,6 milj kr. Resultatet har vänt från en förlust på -360 000 kr till en vinst på 707 000 kr.",
+    "eivora_id": "5d24ea84-18b7-4ed4-b48c-73368c3efe99",
+    "org_number": "5569177081",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Evias AB",
+    "text": "Evias AB har ökat sin nettoomsättning med 348 %, från 662 000 kr till 3,0 milj kr. Resultatet har förbättrats med 88 %, från -390 000 kr till -46 000 kr.",
+    "raw_markdown": "**Evias AB** har ökat sin nettoomsättning med 348 %, från 662 000 kr till 3,0 milj kr. Resultatet har förbättrats med 88 %, från -390 000 kr till -46 000 kr.",
+    "eivora_id": "0c875d07-a26b-434d-9a49-ff49e6f4d937",
+    "org_number": "5591756696",
+    "event_type": "company_accounts"
+  },
+  {
+    "date": "2026-03-03",
+    "company": "Yelte AB",
+    "text": "Yelte AB Resultatet har förbättrats med 33 %, från -27 000 kr till -18 000 kr.",
+    "raw_markdown": "**Yelte AB** Resultatet har förbättrats med 33 %, från -27 000 kr till -18 000 kr.",
+    "eivora_id": "e9da116b-a65f-4d47-84da-ec83dcd5412c",
+    "org_number": "5592703176",
+    "event_type": "company_accounts"
+  },
+  {
     "date": "2026-03-02",
     "company": "Mylla Matmarknad AB",
     "text": "Mylla Matmarknad AB har tagit in 8,8 milj kr i kapital.",
