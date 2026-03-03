@@ -9,6 +9,42 @@
     "event_type": "share_issue"
   },
   {
+    "date": "2026-03-02",
+    "company": "Galaxy Biosolutions AB",
+    "text": "Galaxy Biosolutions AB har förändringar i styrelsen:  \n➕ Ulrika Ahlholm (Extern firmatecknare)\n➕ Anna Björk (Extern firmatecknare)\n➕ Mikael Rosén (Likvidator)\n➕ Niklas Nygårds (Extern firmatecknare)\n➕ Emma Carlstedt Haga (Extern firmatecknare)",
+    "raw_markdown": "**Galaxy Biosolutions AB** har förändringar i styrelsen:  \n➕ Ulrika Ahlholm (Extern firmatecknare)\n➕ Anna Björk (Extern firmatecknare)\n➕ Mikael Rosén (Likvidator)\n➕ Niklas Nygårds (Extern firmatecknare)\n➕ Emma Carlstedt Haga (Extern firmatecknare)",
+    "board_changes": [
+      {
+        "action": "added",
+        "name": "Ulrika Ahlholm",
+        "role": "Extern firmatecknare"
+      },
+      {
+        "action": "added",
+        "name": "Anna Björk",
+        "role": "Extern firmatecknare"
+      },
+      {
+        "action": "added",
+        "name": "Mikael Rosén",
+        "role": "Likvidator"
+      },
+      {
+        "action": "added",
+        "name": "Niklas Nygårds",
+        "role": "Extern firmatecknare"
+      },
+      {
+        "action": "added",
+        "name": "Emma Carlstedt Haga",
+        "role": "Extern firmatecknare"
+      }
+    ],
+    "eivora_id": "8dda9463-28ef-4a31-a1ec-e5064c0ad9c1",
+    "org_number": "5594516535",
+    "event_type": "company_director"
+  },
+  {
     "date": "2026-02-27",
     "company": "Biorecro AB",
     "text": "Biorecro AB har minskat sin nettoomsättning med 7 %, från 3,2 milj kr till 2,9 milj kr. Resultatet har försämrats med 59 %, från 83 000 kr till 34 000 kr.",
